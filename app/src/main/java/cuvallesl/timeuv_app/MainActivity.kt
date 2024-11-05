@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             TimeuvappTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Ventanas",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
