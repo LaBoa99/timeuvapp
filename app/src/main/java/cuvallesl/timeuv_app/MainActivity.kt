@@ -80,7 +80,7 @@ fun LoginScreen(navController: NavHostController) {
     }
 }
 
-@Composable //Se añade esta nueva version, pero falta realizar acomodos
+@Composable //Se añade esta nueva version, pero falta realizar acomodos para que sea adecuado el diseño
 fun HomeWindow(navController: NavHostController) {
     Column(
         modifier = Modifier
