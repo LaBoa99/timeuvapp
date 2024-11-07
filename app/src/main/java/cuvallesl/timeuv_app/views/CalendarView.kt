@@ -39,20 +39,19 @@ fun CalendarView(navController: NavHostController) {
             .background(Color.White)
     ) {
         // Barra superior
-        TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color(0xFFB71C1C)
-            ),
-            title = {
-                Text(
-                    text = "Calendario de actividades",
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 20.sp
-                    )
-                )
-            }
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFFB71C1C))
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Calendario de actividades",
+                color = Color.White,
+                fontSize = 20.sp,
+                modifier = Modifier.align(Alignment.CenterStart)
+            )
+        }
 
         // Botones de Navegación a Talleres y Materias
         Row(
@@ -246,4 +245,4 @@ fun CalendarGrid() {
         }
     }
 }
-Last edited just now
+
