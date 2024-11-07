@@ -22,6 +22,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun MateriasView(navController: NavHostController) {
@@ -31,10 +33,11 @@ fun MateriasView(navController: NavHostController) {
             .background(Color(0xFFF5F5F5))
             .padding(16.dp)
     ) {
-        // Header with back arrow and "Registrar Taller" button
+        // Header with back arrow and title
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -42,25 +45,19 @@ fun MateriasView(navController: NavHostController) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Regresar",
-                    tint = Color.Black
+                    tint = Color.White
                 )
             }
             Text(
-                text = "Programación para Dispositivos Móviles",
+                text = "Registro de Materias",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.weight(1f),
-                color = Color.Black
+                color = Color.White,
+                modifier = Modifier
+                    .background(Color(0xFFD32F2F))
+                    .padding(8.dp)
             )
-            Button(
-                onClick = { /* Acción de opciones */ },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF05454))
-            ) {
-                Text(text = "Registrar Materia", color = Color.White)
-            }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         // Cards for each subject
         MateriaCard(
@@ -82,7 +79,14 @@ fun MateriasView(navController: NavHostController) {
 }
 
 @Composable
-fun MateriaCard(id: String, name: String, professor: String, credits: String) {
+fun MateriaCard(
+    id: String,
+    name: String,
+    professor: String,
+    credits: String
+) {
+    val scope = rememberCoroutineScope()
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,11 +125,13 @@ fun MateriaCard(id: String, name: String, professor: String, credits: String) {
                     color = Color.Black
                 )
             }
-            Icon(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = "Ver más",
-                tint = Color(0xFFD32F2F)
-            )
+            Button(
+                onClick = { /* Acción de opciones */ },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF05454))
+            ) {
+                Text(text = "Registrar", color = Color.White)
+            }
         }
     }
 }
+
