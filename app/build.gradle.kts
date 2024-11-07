@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.navigation.compose)
+    implementation(libs.play.services.maps)
+    implementation(libs.maps.compose)
     implementation(libs.icon.extended)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
