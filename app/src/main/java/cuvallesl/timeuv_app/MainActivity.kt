@@ -1,5 +1,8 @@
 package cuvallesl.timeuv_app
-
+//Importacion de ventanas y procesos
+import cuvallesl.timeuv_app.views.*
+import cuvallesl.timeuv_app.navigation.NavManager
+//dependencias
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -52,9 +55,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
-
-
-
+import androidx.compose.material3.Surface
 
 
 class MainActivity : ComponentActivity() {
@@ -62,293 +63,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MainApp()
-
-        }
-    }
-}
-@Composable
-fun MainApp() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "login") {
-        composable("login") { LoginScreen(navController) }// Ruta para la ventana de Login
-        //Las ventanas se encuentran escritas en base a la estructura establecida de como se manejaria
-        composable("Home") { HomeWindow(navController)} // Ruta para la ventana Home
-        composable("InfoM") { InfoMWindow(navController) }// Ruta para la ventana de Materia que muestra la info
-        composable("Mapa") { MapaWindow(navController)} // Ruta para la ventana Mapa
-        //Rutas posibles dentro del apartado de Calendario
-        composable("Calendario") { CalendarioWindow(navController) }// Ruta para la ventana de Calendario
-        composable("Talleres") { TalleresWindow(navController) }// Ruta para la ventana de Talleres
-        composable("Materias") { MateriasWindow(navController)} // Ruta para la ventana Materias
-        //Rutas posibles dentro del apartado de Perfil
-        composable("Perfil") { PerfilWindow(navController)} // Ruta para la pantalla de Perfil
-        composable("Configuraciones") { ConfiguracionesWindow(navController) }// Ruta para la ventana de Configuraciones
-
-    }
-}
-@Composable
-fun LoginScreen(navController: NavHostController) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(onClick = { navController.navigate("Home") }) {
-            Text("Iniciar Sesion")
-        }
-    }
-}
-
-@Composable
-fun HomeWindow(navController: NavHostController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFD32F2F))
-            .padding(16.dp)
-    ) {
-        // Barra de búsqueda en la parte superior derecha
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-            IconButton(onClick = { /* Acción de búsqueda */ }) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Buscar",
-                    tint = Color.White
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Ilustración central
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White, shape = RoundedCornerShape(16.dp))
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.imagencentral), // Reemplaza con tu recurso de ilustración
-                contentDescription = "Ilustración"
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Sección de materias (Subjects)
-        Text(
-            text = "Subjects",style = MaterialTheme.typography.headlineSmall,color = Color.White
-        )
-        Text(
-            text = "Your Subjects",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = 0.7f)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            SubjectCard(subject = "Mathematics", room = "Room 003A", time = "11:00 - 12:50")
-            SubjectCard(subject = "Biology", room = "Room 004B", time = "13:00")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Sección de horario (Schedule)
-        Text(
-            text = "Your Schedule",
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White
-        )
-        Text(
-            text = "All saved schedules:",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = 0.7f)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        ScheduleCard(name = "James")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Botones de navegación
-        Button(
-            onClick = { navController.navigate("InfoM") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF2196F3)
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = "Inicio",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Ir a Inicio",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        Button(
-            onClick = { navController.navigate("Calendario") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF4CAF50)
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Calendario",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Calendar",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        Button(
-            onClick = { navController.navigate("Perfil") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFF44336)
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Perfil",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Perfil de Usuario",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        // Botón adicional para salir
-        TextButton(
-            onClick = { navController.popBackStack() },
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            Text("Salir")
-        }
-    }
-}
-
-@Composable
-fun SubjectCard(subject: String, room: String, time: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ){
-        Card(
-            modifier = Modifier
-                .weight(1f)
-                .height(100.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.Gray),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(8.dp),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = subject,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = Color.White
-                )
-                Text(
-                    text = room,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = 0.7f)
-                )
-                Text(
-                    text = time,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color.White.copy(alpha = 0.7f)
-                )
+            // Usar un NavController para la navegación
+            val navController = rememberNavController()
+            Surface(color = MaterialTheme.colorScheme.background) {
+                NavManager(navController = navController) // Configurar el NavGraph
             }
         }
     }
 }
 
-@Composable
-fun ScheduleCard(name: String) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF7DD)),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "Profile Icon",
-                modifier = Modifier.size(40.dp) // Tamaño correcto
-            )
-            Spacer(modifier = Modifier.width(8.dp)) // Espaciado correcto
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleMedium
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /* Acción de opciones */ }) {
-                Icon(
-                    imageVector = Icons.Filled.MoreVert, // Icono correcto
-                    contentDescription = "Más opciones"
-                )
-            }
-        }
-    }
-}
 
-@Composable
-fun InfoMWindow(navController: NavHostController) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(onClick = { navController.navigate("Mapa") }) {
-            Text("Ver en el mapa")
-        }
-    }
-}
+
 @Composable
 fun MapaWindow(navController: NavHostController) {
     Column(
