@@ -1,24 +1,48 @@
 package cuvallesl.timeuv_app.views
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.rememberCameraPositionState
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.google.maps.android.compose.MarkerState
+import com.google.android.gms.maps.model.CameraPosition
+
 
 @Composable
 fun MapaView(navController: NavHostController) {
-    Column(
+    // Estado del mapa
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(20.5364, -103.9681), // Coordenadas de ejemplo (Centro Universitario de los Valles)
+            12f // Nivel de zoom
+        )
+    }
+
+    // Mapa de Google con marcador
+    GoogleMap(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        cameraPositionState = cameraPositionState
     ) {
-        Button(onClick = { navController.navigate("InfoM") }) { //La ruta a la que regresa es a InfoM con la intención de confirmar los datos en caso de haber llegado a la ubicacion
-            Text("Regresar")
-        }
+        Marker(
+            state = MarkerState(position = LatLng(20.536277973915965, -103.96617593519974)), // Posición del marcador
+            title = "Biblioteca",
+            snippet = "Biblioteca CUValles"
+        )
+    }
+
+    // Botón para regresar
+    Button(
+        onClick = { navController.navigate("InfoM")  },
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(text = "Regresar")
     }
 }
