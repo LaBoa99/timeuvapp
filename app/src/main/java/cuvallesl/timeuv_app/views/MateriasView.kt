@@ -67,7 +67,7 @@ fun MateriasView(navController: NavHostController) {
             credits = "9 Créditos"
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         MateriaCard(
             id = "ID994",
@@ -75,6 +75,30 @@ fun MateriasView(navController: NavHostController) {
             professor = "Erick Jorge Roberto Guerrero Núñez",
             credits = "9 Créditos"
         )
+        Spacer(modifier = Modifier.height(170.dp))
+
+        NavigationBar(
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White
+        ) {
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                selected = false,
+                onClick = { navController.navigate("Home")  }
+            )
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
+                selected = true,
+                onClick = {navController.navigate("Calendario") }
+            )
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                selected = false,
+                onClick = { navController.navigate("Perfil") }
+            )
+        }
+
+
     }
 }
 

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
@@ -27,6 +28,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -122,79 +125,25 @@ fun HomeView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Botones de navegación
-        Button(
-            onClick = { navController.navigate("InfoM") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF2196F3)
-            )
+        NavigationBar(
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White
         ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = "Inicio",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Ir a Inicio",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        Button(
-            onClick = { navController.navigate("Calendario") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF4CAF50)
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                selected = false,
+                onClick = { navController.navigate("InfoM")  }
             )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Calendario",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Calendar",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        Button(
-            onClick = { navController.navigate("Perfil") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFF44336)
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
+                selected = true,
+                onClick = {navController.navigate("Calendario") }
             )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Perfil",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Perfil de Usuario",
-                    fontSize = 18.sp
-                )
-            }
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                selected = false,
+                onClick = { navController.navigate("Perfil") }
+            )
         }
 
         // Botón adicional para salir

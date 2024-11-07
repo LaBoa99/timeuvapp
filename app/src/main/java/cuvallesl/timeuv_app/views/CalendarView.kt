@@ -38,6 +38,8 @@ fun CalendarView(navController: NavHostController) {
             .fillMaxSize()
             .background(Color.White)
     ) {
+        Spacer(modifier = Modifier.height(40.dp))
+
         // Barra superior
         Box(
             modifier = Modifier
@@ -53,7 +55,38 @@ fun CalendarView(navController: NavHostController) {
             )
         }
 
+        // Título del mes
+        Text(
+            text = "Mayo de 2024",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            textAlign = TextAlign.Center,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium
+        )
+
+        // Días de la semana
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            listOf("L", "M", "M", "J", "V", "S", "D").forEach { day ->
+                Text(
+                    text = day,
+                    modifier = Modifier.padding(8.dp),
+                    fontSize = 16.sp
+                )
+            }
+        }
+
+        // Calendario
+        CalendarGrid()
+
         // Botones de Navegación a Talleres y Materias
+        Spacer(modifier = Modifier.height(170.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,37 +127,6 @@ fun CalendarView(navController: NavHostController) {
                 )
             }
         }
-
-        // Título del mes
-        Text(
-            text = "Mayo de 2024",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            textAlign = TextAlign.Center,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Medium
-        )
-
-        // Días de la semana
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            listOf("L", "M", "M", "J", "V", "S", "D").forEach { day ->
-                Text(
-                    text = day,
-                    modifier = Modifier.padding(8.dp),
-                    fontSize = 16.sp
-                )
-            }
-        }
-
-        // Calendario
-        CalendarGrid()
-
         Spacer(modifier = Modifier.weight(1f))
 
         // Botones inferiores
@@ -168,17 +170,17 @@ fun CalendarView(navController: NavHostController) {
             NavigationBarItem(
                 icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                 selected = false,
-                onClick = { /* TODO */ }
+                onClick = { navController.navigate("Home")  }
             )
             NavigationBarItem(
                 icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
                 selected = true,
-                onClick = { /* TODO */ }
+                onClick = {navController.navigate("Calendario") }
             )
             NavigationBarItem(
                 icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                 selected = false,
-                onClick = { /* TODO */ }
+                onClick = { navController.navigate("Perfil") }
             )
         }
     }

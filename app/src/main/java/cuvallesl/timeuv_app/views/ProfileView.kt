@@ -137,23 +137,22 @@ fun ProfileView(navController: NavController) {
                 .fillMaxSize()
         ) {
             NavigationBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
+                modifier = Modifier.fillMaxWidth(),
+                containerColor = Color.White
             ) {
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Inicio") },
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home") }
+                    onClick = { navController.navigate("Home")  }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendario") },
-                    selected = false,
-                    onClick = { navController.navigate("Calendario") }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
+                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
                     selected = true,
+                    onClick = {navController.navigate("Calendario") }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    selected = false,
                     onClick = { navController.navigate("Perfil") }
                 )
             }
