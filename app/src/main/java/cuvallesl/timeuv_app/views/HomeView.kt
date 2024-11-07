@@ -37,8 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import cuvallesl.timeuv_app.R
+import cuvallesl.timeuv_app.*
 
 @Composable
 fun HomeView(navController: NavController) {
