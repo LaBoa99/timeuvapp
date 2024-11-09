@@ -18,9 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             // Usar un NavController para la navegación
             val navController = rememberNavController()
-            Surface(color = MaterialTheme.colorScheme.background) {
-                NavManager(navController = navController) // Configurar el NavManager
-            }
+            NavManager(navController = navController) // Configurar el NavManager
         }
     }
 }

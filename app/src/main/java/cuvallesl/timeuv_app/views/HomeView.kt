@@ -86,9 +86,9 @@ fun HomeView(navController: NavHostController){
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                    label = { Text("Profile") },
+                    label = { Text("Perfil") },
                     selected = false,
-                    onClick = { navController.navigate("Profile") }
+                    onClick = { navController.navigate("Perfil") }
                 )
             }
         },
