@@ -15,7 +15,7 @@ import androidx.navigation.NavHostController
 import com.google.maps.android.compose.MarkerState
 import com.google.android.gms.maps.model.CameraPosition
 
-
+//Modificar Completamente debido a errores de funcionamiento y navegacion
 @Composable
 fun MapaView(navController: NavHostController) {
     // Estado del mapa
