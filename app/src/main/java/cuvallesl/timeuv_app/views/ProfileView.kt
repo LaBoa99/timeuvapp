@@ -53,7 +53,7 @@ fun ProfileView(navController: NavHostController){
                 },
                 actions = {
                     IconButton(
-                        onClick = {}
+                        onClick = {navController.navigate("Configuraciones")}
                     ){
                         Icon(
                             imageVector = Icons.Default.Settings,
