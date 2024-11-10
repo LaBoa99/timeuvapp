@@ -1,7 +1,9 @@
 package cuvallesl.timeuv_app.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,270 +12,205 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import cuvallesl.timeuv_app.*
+import androidx.navigation.NavHostController
+import cuvallesl.timeuv_app.components.ScheduleCard
+import cuvallesl.timeuv_app.components.SubjectCard
+import cuvallesl.timeuv_app.R
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 
 @Composable
-fun HomeView(navController: NavController) {
+fun HomeView(navController: NavHostController){
+    Scaffold(
+        topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
+            CenterAlignedTopAppBar(
+                title = {Text(text = "")},
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor =  Color(0xFFD32F2F)
+                )
+            )
+            IconButtomHome {
+                //Aqui va la funcionalidad del icon
+            }
+        },
+        bottomBar = {
+            NavigationBar(
+                modifier = Modifier.height(100.dp)
+            ){
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                    label = { Text("Home") },
+                    selected = true,
+                    onClick = { /* Acción al hacer clic en Home */ }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
+                    label = { Text("Calendar") },
+                    selected = false,
+                    onClick = { navController.navigate("Calendario") }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    label = { Text("Profile") },
+                    selected = false,
+                    onClick = { navController.navigate("Profile") }
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .background(Color.Red)
+
+    ) {
+        ContentHomeView(navController)
+    }
+}
+
+@Composable
+fun ContentHomeView(navController: NavHostController){
+
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
+            .statusBarsPadding()
+            .verticalScroll(rememberScrollState())
+            .padding(start =0.dp, end = 0.dp)
+        ,verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ){
+        Space(50)
+
+        Box(modifier = Modifier
+            .clip(RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 16.dp))
+            .fillMaxWidth()
             .background(Color(0xFFD32F2F))
-            .padding(16.dp)
-    ) {
-        // Barra de búsqueda en la parte superior derecha
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-            IconButton(onClick = { /* Acción de búsqueda */ }) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Buscar",
-                    tint = Color.White
-                )
-            }
-        }
+            .heightIn(min = 240.dp, max = 300.dp)
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        // Ilustración central
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White, shape = RoundedCornerShape(16.dp))
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
+        ){
             Image(
-                painter = painterResource(id = R.drawable.imagencentral), // Reemplaza con tu recurso de ilustración
-                contentDescription = "Ilustración"
+                painter = painterResource(id = R.drawable.imagencentral),
+                contentDescription = "Conversation",
+                modifier = Modifier
+                    .height(200.dp)
+                    .clip(CircleShape) // Forma de círculo
+                    .align(Alignment.CenterEnd)  // Alinea la imagen a la derecha
+
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Sección de materias (Subjects)
+        Space(20)
         Text(
-            text = "Subjects",style = MaterialTheme.typography.headlineSmall,color = Color.White
+            text = "Subjects",style = MaterialTheme.typography.headlineSmall,color = Color.Black,
+            modifier = Modifier
+                .align(Alignment.Start)
+                .background(Color.White, shape = RoundedCornerShape(topStart = 16.dp))
+                .fillMaxSize()
+                .padding(10.dp)
         )
+
+        Space(10)
+
         Text(
             text = "Your Subjects",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = 0.7f)
+            color = Color.Black.copy(alpha = 0.7f),
+            modifier = Modifier.align(Alignment.Start).padding(15.dp).background(Color.White)
         )
-
-        Spacer(modifier = Modifier.height(8.dp))
+        Space(20)
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(vertical = 8.dp)
         ) {
-            SubjectCard(subject = "Mathematics", room = "Room 003A", time = "11:00 - 12:50")
-            SubjectCard(subject = "Biology", room = "Room 004B", time = "13:00")
+            SubjectCard(subject = "Mathematics", room = "Room 003A", time = "11:00 - 12:50" , )
+            Spacer(modifier = Modifier.width(20.dp))
+            SubjectCard(subject = "Byology", room = "Room 004A", time = "13:00 - 15:50", )
+            Spacer(modifier = Modifier.width(20.dp))
+            SubjectCard(subject = "Phisic", room = "Room 006B", time = "11:00 - 12:50", )
+            Spacer(modifier = Modifier.width(20.dp))
+            SubjectCard(subject = "Spanish", room = "Room 004A", time = "10:00 - 12:00",)
+
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Sección de horario (Schedule)
+        Space(20)
         Text(
-            text = "Your Schedule",
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White
+            text = "Your Shedule",style = MaterialTheme.typography.headlineSmall,color = Color.Black,
+            modifier = Modifier.align(Alignment.Start).padding(10.dp)
         )
+
+        Space(10)
+
         Text(
-            text = "All saved schedules:",
+            text = "All saved shedules",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = 0.7f)
+            color = Color.Black.copy(alpha = 0.7f),
+            modifier = Modifier.align(Alignment.Start).padding(15.dp)
         )
+        Space(20)
+        ScheduleCard(name = "Jhon")
+        Space(20)
+        ScheduleCard(name = "Pedro")
+        Space(20)
+        ScheduleCard(name = "Juan")
+        Space(20)
+        ScheduleCard(name = "Monica")
+        Space(80)
 
-        Spacer(modifier = Modifier.height(8.dp))
 
-        ScheduleCard(name = "James")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Botones de navegación
-        Button(
-            onClick = { navController.navigate("InfoM") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF2196F3)
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = "Inicio",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Ir a Inicio",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        Button(
-            onClick = { navController.navigate("Calendario") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF4CAF50)
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Calendario",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Calendar",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        Button(
-            onClick = { navController.navigate("Perfil") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFF44336)
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Perfil",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    "Perfil de Usuario",
-                    fontSize = 18.sp
-                )
-            }
-        }
-
-        // Botón adicional para salir
-        TextButton(
-            onClick = { navController.popBackStack() },
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            Text("Salir")
-        }
     }
+}
+@Composable
+fun Space(size: Int){
+    Spacer(modifier = Modifier.height(size.dp))
 }
 
 @Composable
-fun SubjectCard(subject: String, room: String, time: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ){
-        Card(
+fun IconButtomHome(onClick:()-> Unit){
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Buscar",
+            tint = Color.White,
             modifier = Modifier
-                .weight(1f)
-                .height(100.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.Gray),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(8.dp),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = subject,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = Color.White
-                )
-                Text(
-                    text = room,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = 0.7f)
-                )
-                Text(
-                    text = time,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color.White.copy(alpha = 0.7f)
-                )
-            }
-        }
+                .size(35.dp)
+        )
     }
 }
-
-@Composable
-fun ScheduleCard(name: String) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF7DD)),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "Profile Icon",
-                modifier = Modifier.size(40.dp) // Tamaño correcto
-            )
-            Spacer(modifier = Modifier.width(8.dp)) // Espaciado correcto
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleMedium
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /* Acción de opciones */ }) {
-                Icon(
-                    imageVector = Icons.Filled.MoreVert, // Icono correcto
-                    contentDescription = "Más opciones"
-                )
-            }
-        }
-    }
-}
-

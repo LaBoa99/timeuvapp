@@ -1,5 +1,6 @@
 package cuvallesl.timeuv_app.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,8 +26,62 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun MateriasView(navController: NavHostController) {
+fun MateriasView(navController: NavHostController){
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = "Calendario de actividades",
+                        color = Color.White,
+                        fontSize = 20.sp
+                    )
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor =  Color(0xFFB71C1C)
+                )
+            )
+        },
+        bottomBar = {
+            NavigationBar(
+                modifier = Modifier.height(100.dp)
+            ){
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                    label = { Text("Home") },
+                    selected = false,
+                    onClick = { navController.navigate("Home")}
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
+                    label = { Text("Calendar") },
+                    selected = true,
+                    onClick = { navController.navigate("Calendario")  }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    label = { Text("Profile") },
+                    selected = false,
+                    onClick = { navController.navigate("Profile") }
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .background(Color.Red)
+
+    ) {
+        ContentMateriasView(navController)
+    }
+}
+
+@Composable
+fun ContentMateriasView(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,7 +122,7 @@ fun MateriasView(navController: NavHostController) {
             credits = "9 Créditos"
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         MateriaCard(
             id = "ID994",
@@ -75,6 +130,8 @@ fun MateriasView(navController: NavHostController) {
             professor = "Erick Jorge Roberto Guerrero Núñez",
             credits = "9 Créditos"
         )
+        Spacer(modifier = Modifier.height(170.dp))
+
     }
 }
 

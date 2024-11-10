@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Surface
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,9 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             // Usar un NavController para la navegación
             val navController = rememberNavController()
-            Surface(color = MaterialTheme.colorScheme.background) {
-                NavManager(navController = navController) // Configurar el NavManager
-            }
+            NavManager(navController = navController) // Configurar el NavManager
         }
     }
 }

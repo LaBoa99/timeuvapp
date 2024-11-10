@@ -1,5 +1,6 @@
 package cuvallesl.timeuv_app.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,17 +32,21 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Tag
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.graphics.vector.ImageVector
 
 
-
-
-
-
-
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun InfoMView(navController: NavHostController) {
+    Scaffold {
+        InfoMView2(navController)
+    }
+}
+@Composable
+fun InfoMView2(navController: NavHostController) {
     // Main container for the whole screen
     Column(
         modifier = Modifier
@@ -48,6 +54,8 @@ fun InfoMView(navController: NavHostController) {
             .background(Color.White)
             .padding(16.dp)
     ) {
+        Spacer(modifier = Modifier.height(35.dp))
+
         // Header with back button
         Header(navController)
 
@@ -80,7 +88,7 @@ fun InfoMView(navController: NavHostController) {
 
         // Map Button
         Button(
-            onClick = { navController.navigate("Mapa")},
+            onClick = { navController.navigate("Perfil")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),
@@ -92,6 +100,27 @@ fun InfoMView(navController: NavHostController) {
                 modifier = Modifier.padding(end = 8.dp)
             )
             Text("View on Map", color = Color.White)
+        }
+        Spacer(modifier = Modifier.height(260.dp))
+        NavigationBar(
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White
+        ) {
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                selected = false,
+                onClick = { navController.navigate("Home")  }
+            )
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
+                selected = true,
+                onClick = {navController.navigate("Calendario") }
+            )
+            NavigationBarItem(
+                icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                selected = false,
+                onClick = { navController.navigate("Perfil") }
+            )
         }
     }
 }

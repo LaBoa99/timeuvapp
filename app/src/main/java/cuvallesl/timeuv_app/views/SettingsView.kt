@@ -22,7 +22,7 @@ fun SettingsView(navController: NavHostController) {
             TopAppBar(
                 title = { Text("CONFIGURACIONES") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("InfoM") }) {
+                    IconButton(onClick = { navController.navigate("Profile") }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Regresar"
