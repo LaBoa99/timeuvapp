@@ -42,7 +42,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.components.ScheduleCard
@@ -82,13 +81,13 @@ fun HomeView(navController: NavHostController){
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = { /* Acción al hacer clic en Settings */ }
+                    onClick = { navController.navigate("Calendario") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                    label = { Text("Perfil") },
+                    label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Perfil") }
+                    onClick = { navController.navigate("Profile") }
                 )
             }
         },

@@ -1,59 +1,113 @@
 package cuvallesl.timeuv_app.views
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.ui.text.TextStyle
+import androidx.navigation.NavHostController
+
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+
 
 @Composable
-fun CalendarView(navController: NavHostController) {
+fun CalendarView(navController: NavHostController){
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = "Calendario de actividades",
+                        color = Color.White,
+                        fontSize = 20.sp
+                    )
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor =  Color(0xFFB71C1C)
+                )
+            )
+        },
+        bottomBar = {
+            NavigationBar(
+                modifier = Modifier.height(100.dp)
+            ){
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                    label = { Text("Home") },
+                    selected = false,
+                    onClick = { navController.navigate("Home")}
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
+                    label = { Text("Calendar") },
+                    selected = true,
+                    onClick = { /* Acción al hacer clic en Settings */ }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    label = { Text("Profile") },
+                    selected = false,
+                    onClick = { navController.navigate("Profile") }
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .background(Color.Red)
+
+    ) {
+        ContentCalendarView(navController)
+    }
+
+}
+
+
+
+@Composable
+fun ContentCalendarView(navController: NavHostController){
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-    ) {
+            .statusBarsPadding()
+            .padding(top = 40.dp)
+    ){
         Spacer(modifier = Modifier.height(40.dp))
-
-        // Barra superior
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFB71C1C))
-                .padding(16.dp)
-        ) {
-            Text(
-                text = "Calendario de actividades",
-                color = Color.White,
-                fontSize = 20.sp,
-                modifier = Modifier.align(Alignment.CenterStart)
-            )
-        }
 
         // Título del mes
         Text(
@@ -86,7 +140,7 @@ fun CalendarView(navController: NavHostController) {
         CalendarGrid()
 
         // Botones de Navegación a Talleres y Materias
-        Spacer(modifier = Modifier.height(170.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -127,7 +181,9 @@ fun CalendarView(navController: NavHostController) {
                 )
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
+        //Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(30.dp))
+
 
         // Botones inferiores
         Column(
@@ -162,29 +218,10 @@ fun CalendarView(navController: NavHostController) {
             }
         }
 
-        // Barra de navegación inferior
-        NavigationBar(
-            modifier = Modifier.fillMaxWidth(),
-            containerColor = Color.White
-        ) {
-            NavigationBarItem(
-                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                selected = false,
-                onClick = { navController.navigate("Home")  }
-            )
-            NavigationBarItem(
-                icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
-                selected = true,
-                onClick = {navController.navigate("Calendario") }
-            )
-            NavigationBarItem(
-                icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                selected = false,
-                onClick = { navController.navigate("Perfil") }
-            )
-        }
+
     }
 }
+
 @Composable
 fun CalendarGrid() {
     // Días del mes (Mayo 2024 comienza en miércoles)

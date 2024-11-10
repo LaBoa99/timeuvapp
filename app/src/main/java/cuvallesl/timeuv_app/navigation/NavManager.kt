@@ -34,8 +34,8 @@ fun NavManager(navController: NavHostController) {
             MateriasView(navController = navController) // Llama a SettingsScreen
         }
         //Rutas posibles dentro del apartado de Perfil
-        composable("Perfil") {
-            ProfileView(navController = navController)// Llama a SettingsScreen
+        composable("Profile"){
+            ProfileView(navController = navController)
         }
         composable("Configuraciones") {
             SettingsView(navController = navController) // Llama a SettingsScreen

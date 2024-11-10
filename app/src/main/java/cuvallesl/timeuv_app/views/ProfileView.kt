@@ -20,8 +20,6 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
 
@@ -81,7 +79,7 @@ fun ProfileView(navController: NavHostController){
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = { /* Acción al hacer clic en Settings */ }
+                    onClick = {navController.navigate("Calendario")}
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
