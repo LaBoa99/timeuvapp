@@ -28,7 +28,7 @@ import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginView(navController: NavHostController, context: Context) {
+fun LoginView(navController: NavHostController) {
     Scaffold {
         ContentLoginView(navController)
     }

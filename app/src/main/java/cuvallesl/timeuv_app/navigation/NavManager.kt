@@ -10,34 +10,34 @@ import cuvallesl.timeuv_app.views.*
 fun NavManager(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "Login") {
         composable("Login") {
-            LoginView(navController = navController, context = LocalContext.current) // Llama a HomeScreen
+            LoginView(navController = navController) // Llama a HomeScreen
         }
         //Las ventanas se encuentran escritas en base a la estructura establecida de como se manejaria
         composable("Home") {
-            HomeView(navController = navController, context = LocalContext.current) // Llama a DetailScreen
+            HomeView(navController = navController) // Llama a DetailScreen
         }
         composable("InfoM") {
-            InfoMView(navController = navController, context = LocalContext.current) // Llama a SettingsScreen
+            InfoMView(navController = navController) // Llama a SettingsScreen
         }
         composable("Mapa") {
-            MapaView(navController = navController, context = LocalContext.current)
+            MapaView(navController = navController)
         }
         //Rutas posibles dentro del apartado de Calendario
         composable("Calendario") {
-            CalendarView(navController = navController, context = LocalContext.current) // Llama a CalendarView
+            CalendarView(navController = navController) // Llama a CalendarView
         }
         composable("Talleres") {
-            TalleresView(navController = navController, context = LocalContext.current) // Llama a TalleresView
+            TalleresView(navController = navController) // Llama a TalleresView
         }
         composable("Materias") {
-            MateriasView(navController = navController, context = LocalContext.current) // Llama a SettingsScreen
+            MateriasView(navController = navController) // Llama a SettingsScreen
         }
         //Rutas posibles dentro del apartado de Perfil
         composable("Profile"){
-            ProfileView(navController = navController, context = LocalContext.current)
+            ProfileView(navController = navController)
         }
         composable("Configuraciones") {
-            SettingsView(navController = navController, context = LocalContext.current) // Llama a SettingsScreen
+            SettingsView(navController = navController) // Llama a SettingsScreen
         }
     }
 

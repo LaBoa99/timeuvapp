@@ -55,7 +55,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun HomeView(navController: NavHostController, context: Context){
+fun HomeView(navController: NavHostController){
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(

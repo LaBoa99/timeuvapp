@@ -17,7 +17,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsView(navController: NavHostController, context: Context) {
+fun SettingsView(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(

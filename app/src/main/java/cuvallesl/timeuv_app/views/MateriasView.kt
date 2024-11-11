@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MateriasView(navController: NavHostController, context: Context) {
+fun MateriasView(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(

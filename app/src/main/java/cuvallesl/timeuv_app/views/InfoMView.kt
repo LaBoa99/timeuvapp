@@ -41,7 +41,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun InfoMView(navController: NavHostController, context: Context) {
+fun InfoMView(navController: NavHostController) {
     Scaffold {
         InfoMView2(navController)
     }

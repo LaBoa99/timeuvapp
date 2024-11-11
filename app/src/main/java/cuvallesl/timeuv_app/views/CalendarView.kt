@@ -28,7 +28,7 @@ import java.util.*
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarView(navController: NavHostController, context: Context) {
+fun CalendarView(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(

@@ -30,7 +30,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun ProfileView(navController: NavHostController, context: Context){
+fun ProfileView(navController: NavHostController){
 
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera

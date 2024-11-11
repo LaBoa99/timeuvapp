@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
@@ -14,40 +15,42 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
-import android.content.Context
 
 @Composable
-fun MapaView(navController: NavHostController, context: Context) {
-    // Configuración inicial de OSMdroid
-    Configuration.getInstance().userAgentValue = "TimeUV-App"
+fun MapaView(navController: NavHostController) {
+    val context = LocalContext.current
 
-    // Crear y recordar el MapView
-    val mapView = remember {
-        MapView(context).apply {
-            setTileSource(TileSourceFactory.MAPNIK)
-            controller.setZoom(12.0)
+    // Configuración inicial de OSMdroid fuera del bloque de AndroidView
+    remember {
+        Configuration.getInstance().userAgentValue = "TimeUV-App"
+    }
 
-            // Coordenadas de CUValles
-            val cuvallesPoint = GeoPoint(20.5364, -103.9681)
-            controller.setCenter(cuvallesPoint)
-
-            // Agregar marcador para la biblioteca
-            val marker = Marker(this)
-            marker.position = GeoPoint(20.536277973915965, -103.96617593519974)
-            marker.title = "Biblioteca"
-            marker.snippet = "Biblioteca CUValles"
-            overlays.add(marker)
-        }
+    // Crear y mostrar el MapView usando AndroidView
+    AndroidView(
+        factory = { ctx ->
+            MapView(ctx).apply {
+                setTileSource(TileSourceFactory.MAPNIK)
+                controller.setZoom(15.0)
+                controller.setCenter(GeoPoint(20.5364, -103.9681)) // Coordenadas de CUValles
+            }
+        },
+        modifier = Modifier.fillMaxSize()
+    ) { map ->
+        // Agregar marcador para la biblioteca
+        val marker = Marker(map)
+        marker.position = GeoPoint(20.536277973915965, -103.96617593519974)
+        marker.title = "Biblioteca"
+        marker.snippet = "Biblioteca CUValles"
+        map.overlays.add(marker)
+        map.onResume()
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
         // Mapa
         AndroidView(
-            factory = { mapView },
+            factory = { MapView(context) },
             modifier = Modifier.weight(1f)
-        ) { map ->
-            map.onResume()
-        }
+        )
 
         // Botón para regresar
         Button(
