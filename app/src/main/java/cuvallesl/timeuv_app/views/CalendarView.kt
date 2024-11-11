@@ -2,34 +2,15 @@ package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,14 +19,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
+import java.util.*
 
-//Probando nuevo versionado parte 1
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
-
-//Se hace revision
 @Composable
-fun CalendarView(navController: NavHostController){
+fun CalendarView(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -57,25 +39,25 @@ fun CalendarView(navController: NavHostController){
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor =  Color(0xFFB71C1C)
+                    containerColor = Color(0xFFB71C1C)
                 )
             )
         },
         bottomBar = {
             NavigationBar(
                 modifier = Modifier.height(100.dp)
-            ){
+            ) {
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home")}
+                    onClick = { navController.navigate("Home") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = true,
-                    onClick = { /* Acción al hacer clic en Settings */ }
+                    onClick = { /* Actual */ }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
@@ -89,36 +71,56 @@ fun CalendarView(navController: NavHostController){
             .fillMaxSize()
             .statusBarsPadding()
             .background(Color.Red)
-
     ) {
         ContentCalendarView(navController)
     }
-
 }
 
-
-
 @Composable
-fun ContentCalendarView(navController: NavHostController){
+fun ContentCalendarView(navController: NavHostController) {
+    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+    var currentMonth by remember { mutableStateOf(YearMonth.now()) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .statusBarsPadding()
             .padding(top = 40.dp)
-    ){
+    ) {
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Título del mes
-        Text(
-            text = "Mayo de 2024",
+        // Título del mes con navegación
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            textAlign = TextAlign.Center,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Medium
-        )
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                "‹",
+                modifier = Modifier
+                    .clickable { currentMonth = currentMonth.minusMonths(1) }
+                    .padding(8.dp),
+                fontSize = 24.sp,
+                color = Color(0xFFB71C1C)
+            )
+            Text(
+                text = currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy", Locale("es"))),
+                textAlign = TextAlign.Center,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                "›",
+                modifier = Modifier
+                    .clickable { currentMonth = currentMonth.plusMonths(1) }
+                    .padding(8.dp),
+                fontSize = 24.sp,
+                color = Color(0xFFB71C1C)
+            )
+        }
 
         // Días de la semana
         Row(
@@ -136,8 +138,12 @@ fun ContentCalendarView(navController: NavHostController){
             }
         }
 
-        // Calendario
-        CalendarGrid()
+        // Calendario actualizado
+        CalendarGrid(
+            currentMonth = currentMonth,
+            selectedDate = selectedDate,
+            onDateSelected = { selectedDate = it }
+        )
 
         // Botones de Navegación a Talleres y Materias
         Spacer(modifier = Modifier.height(30.dp))
@@ -181,9 +187,8 @@ fun ContentCalendarView(navController: NavHostController){
                 )
             }
         }
-        //Spacer(modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.height(30.dp))
 
+        Spacer(modifier = Modifier.height(30.dp))
 
         // Botones inferiores
         Column(
@@ -217,16 +222,18 @@ fun ContentCalendarView(navController: NavHostController){
                 Text("CANCELAR")
             }
         }
-
-
     }
 }
 
 @Composable
-fun CalendarGrid() {
-    // Días del mes (Mayo 2024 comienza en miércoles)
-    val daysInMonth = 31
-    val startingDay = 3 // Miércoles = 3
+fun CalendarGrid(
+    currentMonth: YearMonth,
+    selectedDate: LocalDate,
+    onDateSelected: (LocalDate) -> Unit
+) {
+    val firstDayOfMonth = currentMonth.atDay(1)
+    val daysInMonth = currentMonth.lengthOfMonth()
+    val startDayOfWeek = firstDayOfMonth.dayOfWeek.value % 7
 
     Column(
         modifier = Modifier
@@ -235,17 +242,15 @@ fun CalendarGrid() {
     ) {
         var currentDay = 1
 
-        // Crear las semanas necesarias
-        repeat((daysInMonth + startingDay - 1 + 6) / 7) { week ->
+        repeat((daysInMonth + startDayOfWeek + 6) / 7) { week ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Crear los días de cada semana
                 repeat(7) { dayOfWeek ->
-                    if (week == 0 && dayOfWeek < startingDay - 1) {
+                    if (week == 0 && dayOfWeek < startDayOfWeek) {
                         // Espacios vacíos antes del primer día
                         Box(
                             modifier = Modifier
@@ -253,21 +258,24 @@ fun CalendarGrid() {
                                 .padding(2.dp)
                         )
                     } else if (currentDay <= daysInMonth) {
-                        // Días del mes
+                        val date = currentMonth.atDay(currentDay)
+                        val isSelected = date == selectedDate
+
                         Box(
                             modifier = Modifier
                                 .size(40.dp)
                                 .padding(2.dp)
                                 .background(
-                                    color = Color.Transparent,
+                                    color = if (isSelected) Color(0xFFB71C1C) else Color.Transparent,
                                     shape = CircleShape
-                                ),
+                                )
+                                .clickable { onDateSelected(date) },
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = currentDay.toString(),
                                 fontSize = 16.sp,
-                                color = Color.Black
+                                color = if (isSelected) Color.White else Color.Black
                             )
                         }
                         currentDay++
@@ -284,4 +292,3 @@ fun CalendarGrid() {
         }
     }
 }
-
