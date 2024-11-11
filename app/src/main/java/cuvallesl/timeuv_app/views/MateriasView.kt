@@ -1,66 +1,56 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.launch
+import androidx.compose.ui.Alignment
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
-fun MateriasView(navController: NavHostController){
+fun MateriasView(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Calendario de actividades",
+                        text = "Registro de Materias",
                         color = Color.White,
-                        fontSize = 20.sp
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor =  Color(0xFFB71C1C)
+                    containerColor = Color(0xFFB71C1C)
                 )
             )
         },
         bottomBar = {
             NavigationBar(
-                modifier = Modifier.height(100.dp)
-            ){
+                modifier = Modifier.height(80.dp)
+            ) {
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home")}
+                    onClick = { navController.navigate("Home") }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
+                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
                     label = { Text("Calendar") },
-                    selected = true,
-                    onClick = { navController.navigate("Calendario")  }
+                    selected = false,
+                    onClick = { navController.navigate("Calendario") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
@@ -69,69 +59,34 @@ fun MateriasView(navController: NavHostController){
                     onClick = { navController.navigate("Profile") }
                 )
             }
-        },
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .background(Color.Red)
-
-    ) {
-        ContentMateriasView(navController)
-    }
-}
-
-@Composable
-fun ContentMateriasView(navController: NavHostController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
-            .padding(16.dp)
-    ) {
-        // Header with back arrow and title
-        Row(
+        }
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(paddingValues)
+                .background(Color(0xFFF5F5F5))
+                .padding(16.dp)
         ) {
-            IconButton(onClick = {navController.popBackStack()}) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Regresar",
-                    tint = Color.White
-                )
-            }
-            Text(
-                text = "Registro de Materias",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier
-                    .background(Color(0xFFD32F2F))
-                    .padding(8.dp)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Cards para cada materia
+            MateriaCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            MateriaCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
             )
         }
-
-        // Cards for each subject
-        MateriaCard(
-            id = "ID994",
-            name = "Programación para Dispositivos Móviles",
-            professor = "Erick Jorge Roberto Guerrero Núñez",
-            credits = "9 Créditos"
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        MateriaCard(
-            id = "ID994",
-            name = "Programación para Dispositivos Móviles",
-            professor = "Erick Jorge Roberto Guerrero Núñez",
-            credits = "9 Créditos"
-        )
-        Spacer(modifier = Modifier.height(170.dp))
-
     }
 }
 
@@ -142,14 +97,12 @@ fun MateriaCard(
     professor: String,
     credits: String
 ) {
-    val scope = rememberCoroutineScope()
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(vertical = 4.dp),
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFDCDC))
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFCDD2))
     ) {
         Row(
             modifier = Modifier
@@ -158,37 +111,69 @@ fun MateriaCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
-                Text(
-                    text = id,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    color = Color(0xFFD32F2F)
-                )
-                Text(
-                    text = name,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.Black
-                )
-                Text(
-                    text = "Profesor: $professor",
-                    fontSize = 14.sp,
-                    color = Color.Black
-                )
-                Text(
-                    text = credits,
-                    fontSize = 14.sp,
-                    color = Color.Black
-                )
-            }
-            Button(
-                onClick = { /* Acción de opciones */ },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF05454))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Registrar", color = Color.White)
+                // Icono de perfil
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "Profile",
+                    modifier = Modifier.size(50.dp),
+                    tint = Color.Gray
+                )
+
+                // Información de la materia
+                Column {
+                    Text(
+                        text = id,
+                        fontSize = 14.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Text(
+                        text = name,
+                        fontSize = 13.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "PROFESOR",
+                        fontSize = 12.sp,
+                        color = Color.DarkGray,
+                    )
+                    Text(
+                        text = professor,
+                        fontSize = 11.sp,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = credits,
+                        fontSize = 12.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+
+            // Botón de registro
+            Button(
+                onClick = { /* Acción de registro */ },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFEEEEEE)
+                ),
+                shape = RoundedCornerShape(4.dp),
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .height(36.dp)
+            ) {
+                Text(
+                    text = "REGISTRAR",
+                    color = Color.Black,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium
+                )
             }
         }
     }
 }
-
