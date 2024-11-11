@@ -43,7 +43,7 @@ import androidx.navigation.NavHostController
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 
-//Se realizan modificaciones funcionales para el manejo de esta ventana
+//Se realizan modificaciones funcionales para el manejo de esta ventana de pruebas
 @Composable
 fun CalendarView(navController: NavHostController){
     Scaffold(
