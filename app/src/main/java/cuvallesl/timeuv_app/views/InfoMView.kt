@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,7 +41,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun InfoMView(navController: NavHostController) {
+fun InfoMView(navController: NavHostController, context: Context) {
     Scaffold {
         InfoMView2(navController)
     }

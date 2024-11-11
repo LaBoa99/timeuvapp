@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -54,7 +55,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun HomeView(navController: NavHostController){
+fun HomeView(navController: NavHostController, context: Context){
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(

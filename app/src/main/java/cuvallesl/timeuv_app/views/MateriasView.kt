@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -19,7 +20,7 @@ import androidx.compose.ui.Alignment
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MateriasView(navController: NavHostController) {
+fun MateriasView(navController: NavHostController, context: Context) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(

@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -29,7 +30,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun ProfileView(navController: NavHostController){
+fun ProfileView(navController: NavHostController, context: Context){
 
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera

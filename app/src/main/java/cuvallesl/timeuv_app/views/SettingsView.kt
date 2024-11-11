@@ -1,5 +1,6 @@
 package cuvallesl.timeuv_app.views
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -16,7 +17,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsView(navController: NavHostController) {
+fun SettingsView(navController: NavHostController, context: Context) {
     Scaffold(
         topBar = {
             TopAppBar(

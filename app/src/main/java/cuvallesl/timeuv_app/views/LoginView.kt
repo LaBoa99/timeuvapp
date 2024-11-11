@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +28,7 @@ import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginView(navController: NavHostController) {
+fun LoginView(navController: NavHostController, context: Context) {
     Scaffold {
         ContentLoginView(navController)
     }
