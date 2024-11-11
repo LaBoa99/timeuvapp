@@ -23,6 +23,7 @@ fun MapaView(navController: NavHostController) {
     // Configuración inicial de OSMdroid fuera del bloque de AndroidView
     remember {
         Configuration.getInstance().userAgentValue = "TimeUV-App"
+        Unit // Retornamos Unit para que no marque error
     }
 
     // Crear y mostrar el MapView usando AndroidView
