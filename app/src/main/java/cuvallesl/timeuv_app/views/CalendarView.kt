@@ -1,7 +1,6 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -130,7 +129,7 @@ fun ContentCalendarView(navController: NavHostController) {
                 .padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            listOf("L", "M", "M", "J", "V", "S", "D").forEach { day ->
+            listOf("D", "L", "M", "M", "J", "V", "S").forEach { day ->
                 Text(
                     text = day,
                     modifier = Modifier.padding(8.dp),
