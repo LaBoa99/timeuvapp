@@ -76,7 +76,7 @@ fun HomeView(navController: NavHostController){
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = true,
-                    onClick = { /* Acción al hacer clic en Home */ }
+                    onClick = { navController.navigate("InfoM") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
