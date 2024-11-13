@@ -1,48 +1,73 @@
 package cuvallesl.timeuv_app.views
 
-import androidx.compose.foundation.layout.fillMaxSize
+import android.content.Context
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.rememberCameraPositionState
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
-import com.google.maps.android.compose.MarkerState
-import com.google.android.gms.maps.model.CameraPosition
+import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 
-//Modificar Completamente debido a errores de funcionamiento y navegacion
 @Composable
 fun MapaView(navController: NavHostController) {
-    // Estado del mapa
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(
-            LatLng(20.5364, -103.9681), // Coordenadas de ejemplo (Centro Universitario de los Valles)
-            12f // Nivel de zoom
-        )
+    val context = LocalContext.current
+
+    // Configuración inicial de OSMdroid con SharedPreferences
+    LaunchedEffect(Unit) {
+        Configuration.getInstance().load(context, context.getSharedPreferences("map_prefs", Context.MODE_PRIVATE))
+        Configuration.getInstance().userAgentValue = "TimeUV-App"
     }
 
-    // Mapa de Google con marcador
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
-    ) {
-        Marker(
-            state = MarkerState(position = LatLng(20.536277973915965, -103.96617593519974)), // Posición del marcador
-            title = "Biblioteca",
-            snippet = "Biblioteca CUValles"
-        )
+    // Crear y mostrar el MapView usando AndroidView, con gestión de ciclo de vida
+    var mapView by remember { mutableStateOf<MapView?>(null) }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            mapView?.onPause()
+            mapView?.onDetach()
+        }
     }
 
-    // Botón para regresar
-    Button(
-        onClick = { navController.navigate("InfoM")  },
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(text = "Regresar")
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Mapa
+        AndroidView(
+            factory = { ctx ->
+                MapView(ctx).apply {
+                    mapView = this
+                    setTileSource(TileSourceFactory.MAPNIK)
+                    controller.setZoom(15.0)
+                    controller.setCenter(GeoPoint(20.5364, -103.9681)) // Coordenadas de CUValles
+
+                    // Agregar marcador para la biblioteca
+                    val marker = Marker(this)
+                    marker.position = GeoPoint(20.536277973915965, -103.96617593519974)
+                    marker.title = "Biblioteca"
+                    marker.snippet = "Biblioteca CUValles"
+                    overlays.add(marker)
+
+                    onResume() // Resumir el mapa para evitar problemas de visualización
+                }
+            },
+            modifier = Modifier.weight(1f)
+        ) { map ->
+            mapView = map
+            map.onResume() // Asegura que el mapa esté activo al mostrar la vista
+        }
+
+        // Botón para regresar
+        Button(
+            onClick = { navController.navigate("InfoM") },
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(text = "Regresar")
+        }
     }
 }
