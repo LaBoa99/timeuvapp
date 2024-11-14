@@ -89,7 +89,7 @@ fun InfoMView2(navController: NavHostController) {
 
         // Map Button
         Button(
-            onClick = { navController.navigate("Perfil")},
+            onClick = { navController.navigate("Mapa")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),
