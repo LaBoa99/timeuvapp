@@ -188,40 +188,6 @@ fun ContentCalendarView(navController: NavHostController) {
             }
         }
 
-        Spacer(modifier = Modifier.height(30.dp))
-
-        // Botones inferiores
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Button(
-                onClick = { /* TODO */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFB71C1C)
-                )
-            ) {
-                Text("ACEPTAR")
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedButton(
-                onClick = { /* TODO */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = Color(0xFFB71C1C)
-                )
-            ) {
-                Text("CANCELAR")
-            }
-        }
     }
 }
 

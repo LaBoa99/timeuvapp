@@ -1,7 +1,8 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -33,21 +35,48 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Tag
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.sp
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun InfoMView(navController: NavHostController) {
-    Scaffold {
-        InfoMView2(navController)
+    Scaffold(
+        topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
+            CenterAlignedTopAppBar(
+                title = {Text(text = "Subject Details",color = Color.White,fontSize = 20.sp)},
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor =  Color(0xFFD32F2F)
+                ),
+                navigationIcon = {
+                    IconButton(
+                        onClick = {navController.navigate("Home")}
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                }
+            )
+        },
+        modifier = Modifier
+            .statusBarsPadding()
+            .fillMaxSize()
+    ){
+        ContentInfoMView(navController)
     }
 }
+
 @Composable
-fun InfoMView2(navController: NavHostController) {
+fun ContentInfoMView(navController: NavHostController) {
     // Main container for the whole screen
     Column(
         modifier = Modifier
@@ -57,8 +86,6 @@ fun InfoMView2(navController: NavHostController) {
     ) {
         Spacer(modifier = Modifier.height(35.dp))
 
-        // Header with back button
-        Header(navController)
 
         // Subject name
         Text(
@@ -102,60 +129,9 @@ fun InfoMView2(navController: NavHostController) {
             )
             Text("View on Map", color = Color.White)
         }
-        Spacer(modifier = Modifier.height(260.dp))
-        NavigationBar(
-            modifier = Modifier.fillMaxWidth(),
-            containerColor = Color.White
-        ) {
-            NavigationBarItem(
-                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                selected = false,
-                onClick = { navController.navigate("Home")  }
-            )
-            NavigationBarItem(
-                icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
-                selected = true,
-                onClick = {navController.navigate("Calendario") }
-            )
-            NavigationBarItem(
-                icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                selected = false,
-                onClick = { navController.navigate("Perfil") }
-            )
-        }
     }
 }
 
-@Composable
-fun Header(navController: NavHostController) {
-    // Header with back button
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFFD32F2F))
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        IconButton(
-            onClick = { navController.navigate("Home") },
-            modifier = Modifier
-                .background(Color.White, shape = RoundedCornerShape(50))
-                .padding(8.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack, // Material Icon for back button
-                contentDescription = "Back",
-                tint = Color.White
-            )
-        }
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "Subject Details",
-            color = Color.White,
-            style = MaterialTheme.typography.titleLarge
-        )
-    }
-}
 
 @Composable
 fun InfoCard(icon: ImageVector, label: String, content: String) {

@@ -39,7 +39,7 @@ fun MateriasView(navController: NavHostController) {
         },
         bottomBar = {
             NavigationBar(
-                modifier = Modifier.height(80.dp)
+                modifier = Modifier.height(100.dp)
             ) {
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
@@ -60,7 +60,11 @@ fun MateriasView(navController: NavHostController) {
                     onClick = { navController.navigate("Profile") }
                 )
             }
-        }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+
     ) { paddingValues ->
         Column(
             modifier = Modifier

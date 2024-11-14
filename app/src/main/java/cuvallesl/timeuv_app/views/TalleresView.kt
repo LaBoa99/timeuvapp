@@ -1,7 +1,6 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -39,7 +38,7 @@ fun TalleresView(navController: NavHostController) {
         },
         bottomBar = {
             NavigationBar(
-                modifier = Modifier.height(80.dp)
+                modifier = Modifier.height(100.dp)
             ) {
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
@@ -60,7 +59,9 @@ fun TalleresView(navController: NavHostController) {
                     onClick = { navController.navigate("Profile") }
                 )
             }
-        }
+        },
+        modifier = Modifier
+            .statusBarsPadding()
     ) { paddingValues ->
         Column(
             modifier = Modifier
