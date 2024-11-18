@@ -28,46 +28,32 @@ import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginView(navController: NavHostController) {
+fun NewAccView(navController: NavHostController) {
     Scaffold {
-        ContentLoginView(navController)
+        ContentNAView(navController)
     }
 }
 
 @Composable
-fun ContentLoginView(navController: NavHostController) {
+fun ContentNAView(navController: NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeaderImage()
+        HeaderImageNA()
         Spacer(modifier = Modifier.padding(26.dp))
-        EmailField()
+        EmailFieldNA()
         Spacer(modifier = Modifier.padding(1.dp))
-        PaswordField()
-        ButtonLogin(navController) // Pasamos navController aquí
-        ButtonNA(navController) // Pasamos navController aquí
+        PaswordFieldNA()
+        ButtonLoginNA(navController) // Pasamos navController aquí
     }
 }
 
 @Composable
-fun ButtonLogin(navController: NavHostController) {
+fun ButtonLoginNA(navController: NavHostController) {
     Button(
         onClick = { navController.navigate("Home") },
-        modifier = Modifier
-            .width(150.dp)
-            .padding(vertical = 8.dp),
-        colors = ButtonDefaults.buttonColors(Color.Red),
-        content = {
-            Text(text = "Iniciar Sesion")
-        }
-    )
-}
-@Composable
-fun ButtonNA(navController: NavHostController) {
-    Button(
-        onClick = { navController.navigate("NewAccount") },
         modifier = Modifier
             .width(150.dp)
             .padding(vertical = 8.dp),
@@ -78,7 +64,7 @@ fun ButtonNA(navController: NavHostController) {
     )
 }
 @Composable
-fun PaswordField() {
+fun PaswordFieldNA() {
     TextField(
         value = "",
         onValueChange = {},
@@ -90,7 +76,7 @@ fun PaswordField() {
     )
 }
 @Composable
-fun EmailField() {
+fun EmailFieldNA() {
     TextField(
         value = "",
         onValueChange = {},
@@ -102,7 +88,7 @@ fun EmailField() {
     )
 }
 @Composable
-fun HeaderImage(){
+fun HeaderImageNA(){
     Image(
         painter = painterResource(id = R.drawable.logoinicio),
         contentDescription ="Header",

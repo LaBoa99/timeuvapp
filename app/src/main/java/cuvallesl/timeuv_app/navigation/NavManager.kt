@@ -12,6 +12,9 @@ fun NavManager(navController: NavHostController) {
         composable("Login") {
             LoginView(navController = navController) // Llama a HomeScreen
         }
+        composable("NewAccount") {
+            NewAccView(navController = navController) // Llama a HomeScreen
+        }
         //Las ventanas se encuentran escritas en base a la estructura establecida de como se manejaria
         composable("Home") {
             HomeView(navController = navController) // Llama a DetailScreen
