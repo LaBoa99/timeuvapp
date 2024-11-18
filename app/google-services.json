@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "380166204684",
+    "project_id": "timeuv-da10f",
+    "storage_bucket": "timeuv-da10f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380166204684:android:1e5c21a40fd8972c382d29",
+        "android_client_info": {
+          "package_name": "cuvallesl.timeuv_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBpR-r9FKn8OKDPKZY2xleRiK1hI_cZig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
