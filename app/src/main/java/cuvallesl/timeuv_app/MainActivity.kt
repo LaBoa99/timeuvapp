@@ -17,7 +17,9 @@ import cuvallesl.timeuv_app.fcm.getTokenFromPreferences
 import cuvallesl.timeuv_app.navigation.NavManager
 
 class MainActivity : ComponentActivity() {
-
+    companion object {
+        const val NOTIFICATION_CHANNEL_ID = "notification_fcm"
+    }
     // Registro de permisos dentro de la clase
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -35,9 +37,9 @@ class MainActivity : ComponentActivity() {
         // Crear un canal de notificación si es necesario
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val channel = NotificationChannel(
-                "default_channel_id",
-                "Default Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
+                NOTIFICATION_CHANNEL_ID,
+                "Notificaciones de FCM",
+                NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Canal predeterminado para notificaciones"
             }
