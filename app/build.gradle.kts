@@ -56,6 +56,9 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-permissions:0.36.0")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation(platform(libs.firebase.bom))
+    implementation (libs.retrofit2)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
