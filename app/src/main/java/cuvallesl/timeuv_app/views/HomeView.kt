@@ -76,7 +76,7 @@ fun HomeView(navController: NavHostController){
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = true,
-                    onClick = { navController.navigate("InfoM") }
+                    onClick = { }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
@@ -162,13 +162,13 @@ fun ContentHomeView(navController: NavHostController){
                 .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
                 .padding(vertical = 8.dp)
         ) {
-            SubjectCard(subject = "Mathematics", room = "Room 003A", time = "11:00 - 12:50" , )
+            SubjectCard(subject = "Mathematics", room = "Room 003A", time = "11:00 - 12:50" , ){navController.navigate("InfoM")}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Byology", room = "Room 004A", time = "13:00 - 15:50", )
+            SubjectCard(subject = "Byology", room = "Room 004A", time = "13:00 - 15:50", ){}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Phisic", room = "Room 006B", time = "11:00 - 12:50", )
+            SubjectCard(subject = "Phisic", room = "Room 006B", time = "11:00 - 12:50", ){}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Spanish", room = "Room 004A", time = "10:00 - 12:00",)
+            SubjectCard(subject = "Spanish", room = "Room 004A", time = "10:00 - 12:00",){}
 
         }
         Space(20)

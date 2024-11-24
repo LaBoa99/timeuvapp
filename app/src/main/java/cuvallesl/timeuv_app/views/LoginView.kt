@@ -1,7 +1,6 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement
@@ -11,21 +10,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginView(navController: NavHostController) {
@@ -36,16 +37,17 @@ fun LoginView(navController: NavHostController) {
 
 @Composable
 fun ContentLoginView(navController: NavHostController) {
+    var inputText = remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HeaderImage()
-        Spacer(modifier = Modifier.padding(26.dp))
-        EmailField()
+        Spacer(modifier = Modifier.padding(20.dp))
+        EmailTextField("Email", onTextChanged = { text -> inputText.value = text})
         Spacer(modifier = Modifier.padding(1.dp))
-        PaswordField()
+        PaswordTextField("Pasword", onTextChanged = { text -> inputText.value = text})
         ButtonLogin(navController) // Pasamos navController aquí
         ButtonNA(navController) // Pasamos navController aquí
     }
@@ -77,30 +79,7 @@ fun ButtonNA(navController: NavHostController) {
         }
     )
 }
-@Composable
-fun PaswordField() {
-    TextField(
-        value = "",
-        onValueChange = {},
-        placeholder = { Text(text = "Pasword") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        singleLine = true,
-        maxLines = 1,
-        modifier = Modifier.fillMaxWidth().padding(20.dp)
-    )
-}
-@Composable
-fun EmailField() {
-    TextField(
-        value = "",
-        onValueChange = {},
-        placeholder = { Text(text = "Email") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        singleLine = true,
-        maxLines = 1,
-        modifier = Modifier.fillMaxWidth().padding(20.dp)
-    )
-}
+
 @Composable
 fun HeaderImage(){
     Image(
@@ -110,4 +89,41 @@ fun HeaderImage(){
             .width(250.dp)
             .height(250.dp)
     )
+}
+
+//-------------------------------
+@Composable
+fun PaswordTextField(label: String, onTextChanged: (String) -> Unit) {
+
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
+
+    TextField(
+        value = textState.value,
+        onValueChange = { newText ->
+            textState.value = newText
+            onTextChanged(newText.text)
+        },
+        label = { Text(label) },
+        singleLine = true,
+        modifier = Modifier.fillMaxWidth().padding(20.dp)
+    )
+
+}
+
+@Composable
+fun EmailTextField(label: String, onTextChanged: (String) -> Unit) {
+
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
+
+    TextField(
+        value = textState.value,
+        onValueChange = { newText ->
+            textState.value = newText
+            onTextChanged(newText.text)
+        },
+        label = { Text(label) },
+        singleLine = true,
+        modifier = Modifier.fillMaxWidth().padding(20.dp)
+    )
+
 }

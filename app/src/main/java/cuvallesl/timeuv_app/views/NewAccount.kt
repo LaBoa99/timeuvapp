@@ -18,11 +18,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
@@ -36,6 +39,7 @@ fun NewAccView(navController: NavHostController) {
 
 @Composable
 fun ContentNAView(navController: NavHostController) {
+    var inputText = remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -43,9 +47,9 @@ fun ContentNAView(navController: NavHostController) {
     ) {
         HeaderImageNA()
         Spacer(modifier = Modifier.padding(26.dp))
-        EmailFieldNA()
+        EmailFieldNA("Email", onTextChanged = { text -> inputText.value = text})
         Spacer(modifier = Modifier.padding(1.dp))
-        PaswordFieldNA()
+        PaswordFieldNA("Email", onTextChanged = { text -> inputText.value = text})
         ButtonLoginNA(navController) // Pasamos navController aquí
     }
 }
@@ -63,29 +67,41 @@ fun ButtonLoginNA(navController: NavHostController) {
         }
     )
 }
+
 @Composable
-fun PaswordFieldNA() {
+fun PaswordFieldNA(label: String, onTextChanged: (String) -> Unit) {
+
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
+
     TextField(
-        value = "",
-        onValueChange = {},
-        placeholder = { Text(text = "Pasword") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        value = textState.value,
+        onValueChange = { newText ->
+            textState.value = newText
+            onTextChanged(newText.text)
+        },
+        label = { Text(label) },
         singleLine = true,
-        maxLines = 1,
         modifier = Modifier.fillMaxWidth().padding(20.dp)
     )
+
 }
+
 @Composable
-fun EmailFieldNA() {
+fun EmailFieldNA(label: String, onTextChanged: (String) -> Unit) {
+
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
+
     TextField(
-        value = "",
-        onValueChange = {},
-        placeholder = { Text(text = "Email") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        value = textState.value,
+        onValueChange = { newText ->
+            textState.value = newText
+            onTextChanged(newText.text)
+        },
+        label = { Text(label) },
         singleLine = true,
-        maxLines = 1,
         modifier = Modifier.fillMaxWidth().padding(20.dp)
     )
+
 }
 @Composable
 fun HeaderImageNA(){
