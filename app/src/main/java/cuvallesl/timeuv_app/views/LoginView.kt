@@ -26,6 +26,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
+import cuvallesl.timeuv_app.network.ApiClient
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
+import cuvallesl.timeuv_app.models.LoginRequest
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -37,7 +48,12 @@ fun LoginView(navController: NavHostController) {
 
 @Composable
 fun ContentLoginView(navController: NavHostController) {
-    var inputText = remember { mutableStateOf("") }
+    val apiService = ApiClient.apiService
+    val scope = rememberCoroutineScope()
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -45,10 +61,42 @@ fun ContentLoginView(navController: NavHostController) {
     ) {
         HeaderImage()
         Spacer(modifier = Modifier.padding(20.dp))
-        EmailTextField("Email", onTextChanged = { text -> inputText.value = text})
+        TextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        //EmailTextField("Email", onTextChanged = { text -> inputText.value = text})
         Spacer(modifier = Modifier.padding(1.dp))
-        PaswordTextField("Pasword", onTextChanged = { text -> inputText.value = text})
-        ButtonLogin(navController) // Pasamos navController aquí
+        TextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Password") },
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth()
+        )
+        //PaswordTextField("Pasword", onTextChanged = { text -> inputText.value = text})
+        //ButtonLogin(navController) // Pasamos navController aquí
+        Button(
+            onClick = {
+                scope.launch {
+                    try {
+                        val response = apiService.login(LoginRequest(email, password))
+                        // Si el login es exitoso, ejecuta la acción de éxito.
+                        navController.navigate("Home")
+                    } catch (e: Exception) {
+                        errorMessage = "Error: ${e.message}"
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Login")
+        }
+        if (errorMessage.isNotEmpty()) {
+            Text(text = errorMessage)
+        }
         ButtonNA(navController) // Pasamos navController aquí
     }
 }
