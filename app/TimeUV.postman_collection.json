@@ -1,0 +1,674 @@
+{
+	"info": {
+		"_postman_id": "f1b9407b-e422-4475-aaf5-d9c055e1dd2c",
+		"name": "TimeUV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19254450"
+	},
+	"item": [
+		{
+			"name": "Generic-CRUD",
+			"item": [
+				{
+					"name": "findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}?",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggle",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id/toggle",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id",
+								"toggle"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id/:status",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "Debe ser siempre \"enable\" o \"disable\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Este script sirve para setear la root",
+							"const ENDPOINT = \"generic\";",
+							"pm.collectionVariables.set('endpoint-root', ENDPOINT);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJlbWFpbCI6Imthd2lnYWVsOTlAZ21haWwuY29tIiwiaWF0IjoxNzMyMTI4NjI5LCJleHAiOjE3MzI3MzM0Mjl9.ALVKGAlck8HNWZRugRISJpH34sxwOB45r4khiTrzLlc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/check",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kawigael99@gmail.com\",\r\n    \"password\": \"200322\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/login",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"kawigael99@gmail.com\",\r\n    \"password\": \"200322\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}{{endpoint-root}}/login",
+									"host": [
+										"{{url}}{{endpoint-root}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "202"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ca-jZJn97yQHy2u8DjFwcouSpw8zEQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 04:49:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJrYXdpZ2FlbDk5QGdtYWlsLmNvbSIsImlhdCI6MTczMTgxODk5OCwiZXhwIjoxNzMyNDIzNzk4fQ.Ps0U7qIe9Y4kK_AUFaWM1Me_lLbPewq3NP3owL7Iuf0\"\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Este script sirve para setear la root",
+							"const ENDPOINT = \"auth\";",
+							"pm.collectionVariables.set('endpoint-root', ENDPOINT);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMTEyOTI5MCwianRpIjoiOWRkNTQ4OWYtMGEzNi00MTEyLWIyMmItYmZlM2Y4NzAzZjY2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzMxMTI5MjkwLCJjc3JmIjoiMzMxYmJkMzQtNjgxMi00MWYxLWEwZmUtMjY3YjgxMDYxNzg3IiwiZXhwIjoxNzMxMTMwMTkwfQ.9-O-8nowdYpZN82_bvLIEMmawodpNp4TzqAQBNxDOeo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}-2",
+							"host": [
+								"{{url}}{{endpoint-root}}-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kawigael99@gmail.com\",\r\n    \"password\": \"200322\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"kawigael99@gmail.com\",\r\n    \"password\": \"200322\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}{{endpoint-root}}",
+									"host": [
+										"{{url}}{{endpoint-root}}"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"45-eRI174KQrrivmTwziC+zMHme240\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 17 Nov 2024 04:48:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"kawigael99@gmail.com\",\n    \"id\": \"5\",\n    \"notification_enabled\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kawigael99@gmail.com\",\r\n    \"password\": \"200322\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/login",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggle",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id/toggle",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id",
+								"toggle"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id/:status",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "Debe ser siempre \"enable\" o \"disable\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{endpoint-root}}/:id",
+							"host": [
+								"{{url}}{{endpoint-root}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "ID de la entidad"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Este script sirve para setear la root",
+							"const ENDPOINT = \"users\";",
+							"pm.collectionVariables.set('endpoint-root', ENDPOINT);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:5000/api/",
+			"type": "string"
+		},
+		{
+			"key": "endpoint-root",
+			"value": "users",
+			"type": "string"
+		}
+	]
+}
