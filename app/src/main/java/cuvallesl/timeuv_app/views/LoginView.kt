@@ -1,6 +1,6 @@
 package cuvallesl.timeuv_app.views
 
-import android.annotation.SuppressLint
+import   android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement

@@ -27,6 +27,4 @@ class FcmService : FirebaseMessagingService() {
         notificationManager.notify(1, notification)
 
     }
-
-
 }

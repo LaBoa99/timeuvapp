@@ -1,5 +1,6 @@
 package cuvallesl.timeuv_app.network
 
+import cuvallesl.timeuv_app.network.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -1,8 +1,10 @@
 package cuvallesl.timeuv_app
 
 // Importaciones necesarias
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
             )
             notificationManager?.createNotificationChannel(channel)
         }
-
+        requestPermissions()
         // Configurar el contenido de la actividad
         setContent {
             MaterialTheme {
@@ -61,6 +63,20 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavManager(navController = navController)
                 }
+            }
+        }
+    }
+    private fun requestPermissions() {
+        val permissions = arrayOf(
+            android.Manifest.permission.POST_NOTIFICATIONS,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            // ... otros permisos que necesites ...
+        )
+
+        permissions.forEach { permission ->
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(permission)
             }
         }
     }

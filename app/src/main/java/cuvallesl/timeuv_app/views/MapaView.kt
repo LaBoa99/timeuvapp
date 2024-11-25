@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -46,16 +48,35 @@ fun MapaView(navController: NavHostController) {
             mapView?.onDetach()
         }
     }
+    // Launcher para solicitar el permiso de ubicación
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            if (isGranted) {
+                // Permiso concedido, iniciar actualizaciones de ubicación
+                fusedLocationClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        currentLocation = locationResult.lastLocation
+                    }
+                }, context.mainLooper)
+            } else {
+                // Permiso denegado, mostrar un mensaje al usuario
+                Toast.makeText(context, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
+    )
 
     LaunchedEffect(Unit) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Solicitar el permiso si no está concedido
+            launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        } else {
+            // Permiso ya concedido, iniciar actualizaciones de ubicación
             fusedLocationClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     currentLocation = locationResult.lastLocation
                 }
             }, context.mainLooper)
-        } else {
-            Toast.makeText(context, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
         }
     }
 
