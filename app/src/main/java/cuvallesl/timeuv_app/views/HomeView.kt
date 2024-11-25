@@ -38,6 +38,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,7 +59,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun HomeView(navController: NavHostController){
+fun HomeView(email:String, navController: NavHostController){
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(
@@ -98,12 +102,12 @@ fun HomeView(navController: NavHostController){
             .background(Color.Red)
 
     ) {
-        ContentHomeView(navController)
+        ContentHomeView(email,navController)
     }
 }
 
 @Composable
-fun ContentHomeView(navController: NavHostController){
+fun ContentHomeView(email:String, navController: NavHostController){
 
     Column(
         modifier = Modifier
@@ -162,13 +166,22 @@ fun ContentHomeView(navController: NavHostController){
                 .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
                 .padding(vertical = 8.dp)
         ) {
-            SubjectCard(subject = "Mathematics", room = "Room 003A", time = "11:00 - 12:50" , ){navController.navigate("InfoM")}
+
+            SubjectCard(subject = "Teoria de Control", room = "Aula C3", time = "08:00 - 10:0" , ){
+                var materia = "1"
+                navController.navigate("InfoM/$materia")}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Byology", room = "Room 004A", time = "13:00 - 15:50", ){}
+            SubjectCard(subject = "Diseno de Algoritmos", room = "Aula B1", time = "16:00 - 18:00", ){
+                var materia = "2"
+                navController.navigate("InfoM/$materia")}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Phisic", room = "Room 006B", time = "11:00 - 12:50", ){}
+            SubjectCard(subject = "Automatizacion Industrial", room = "Aula C2", time = "12:00 - 14:00", ){
+                var materia = "3"
+                navController.navigate("InfoM/$materia")}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Spanish", room = "Room 004A", time = "10:00 - 12:00",){}
+            SubjectCard(subject = "Varias Variables", room = "Aula A 10", time = "14:00 - 18:00",){
+                var materia = "4"
+                navController.navigate("InfoM/$materia")}
 
         }
         Space(20)

@@ -18,11 +18,15 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.Alignment
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MateriasView(navController: NavHostController) {
+    val context = LocalContext.current
+    val toast = Toast.makeText(context,"Se manda a Leo",Toast.LENGTH_SHORT )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -190,7 +194,7 @@ fun MateriaCard(
 
             // Botón de registro
             Button(
-                onClick = { /* Acción de registro */ },
+                onClick = {/*Se envia a Leo*/},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFEEEEEE)
                 ),

@@ -37,6 +37,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import cuvallesl.timeuv_app.models.LoginRequest
 import kotlinx.coroutines.launch
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -49,6 +51,7 @@ fun LoginView(navController: NavHostController) {
 @Composable
 fun ContentLoginView(navController: NavHostController) {
     val apiService = ApiClient.apiService
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     var email by remember { mutableStateOf("") }
@@ -83,9 +86,14 @@ fun ContentLoginView(navController: NavHostController) {
             onClick = {
                 scope.launch {
                     try {
-                        val response = apiService.login(LoginRequest(email, password))
+                        if(email == "Home" && password == "Home"){
+                        //val response = apiService.login(LoginRequest(email, password))
                         // Si el login es exitoso, ejecuta la acción de éxito.
-                        navController.navigate("Home")
+                        navController.navigate("Home/$email")
+                        }
+                        else{
+                           Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
+                        }
                     } catch (e: Exception) {
                         errorMessage = "Error: ${e.message}"
                     }

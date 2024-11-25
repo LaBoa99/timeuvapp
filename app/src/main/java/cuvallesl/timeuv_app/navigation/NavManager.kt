@@ -10,17 +10,20 @@ import cuvallesl.timeuv_app.views.*
 fun NavManager(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "Login") {
         composable("Login") {
-            LoginView(navController = navController) // Llama a HomeScreen
+            LoginView(navController = navController)
+                //navController = navController) // Llama a HomeScreen
         }
         composable("NewAccount") {
             NewAccView(navController = navController) // Llama a HomeScreen
         }
         //Las ventanas se encuentran escritas en base a la estructura establecida de como se manejaria
-        composable("Home") {
-            HomeView(navController = navController) // Llama a DetailScreen
+        composable("Home/{email}") {backStackEntry ->
+            val email = backStackEntry.arguments?.getString("email")?:"Unknown"
+            HomeView(email =email, navController = navController) // Llama a DetailScreen
         }
-        composable("InfoM") {
-            InfoMView(navController = navController) // Llama a SettingsScreen
+        composable("InfoM/{materia}") {backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            InfoMView(materia=materia ,navController = navController) // Llama a SettingsScreen
         }
         composable("Mapa") {
             MapaView(navController = navController)
@@ -32,11 +35,11 @@ fun NavManager(navController: NavHostController) {
         composable("Talleres") {
             TalleresView(navController = navController) // Llama a TalleresView
         }
-        composable("Materias") {
+        composable("Materias/{email}") {
             MateriasView(navController = navController) // Llama a SettingsScreen
         }
         //Rutas posibles dentro del apartado de Perfil
-        composable("Profile"){
+        composable("Profile/{email}"){
             ProfileView(navController = navController)
         }
         composable("Configuraciones") {

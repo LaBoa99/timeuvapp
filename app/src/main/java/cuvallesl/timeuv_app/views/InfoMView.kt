@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun InfoMView(navController: NavHostController) {
+fun InfoMView(materia: String, navController: NavHostController) {
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(
@@ -71,12 +71,12 @@ fun InfoMView(navController: NavHostController) {
             .statusBarsPadding()
             .fillMaxSize()
     ){
-        ContentInfoMView(navController)
+        ContentInfoMView(materia,navController)
     }
 }
 
 @Composable
-fun ContentInfoMView(navController: NavHostController) {
+fun ContentInfoMView(materia:String, navController: NavHostController) {
     // Main container for the whole screen
     Column(
         modifier = Modifier
@@ -87,33 +87,118 @@ fun ContentInfoMView(navController: NavHostController) {
         Spacer(modifier = Modifier.height(35.dp))
 
 
-        // Subject name
-        Text(
-            text = "Mathematics",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+        // Materia1
+        if(materia =="1" ) {
+                Text(
+                    text = "Teoria de Control",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
 
-        // Info cards
-        InfoCard(
-            icon = Icons.Default.Place, // Material Icon for location
-            label = "Room",
-            content = "Room D004A"
-        )
+                // Info cards
+                InfoCard(
+                    icon = Icons.Default.Place, // Material Icon for location
+                    label = "Room",
+                    content = "Aula C3"
+                )
 
-        InfoCard(
-            icon = Icons.Default.AccessTime, // Material Icon for time
-            label = "Schedule",
-            content = "11:00 - 12:30"
-        )
+                InfoCard(
+                    icon = Icons.Default.AccessTime, // Material Icon for time
+                    label = "Schedule",
+                    content = "08:00 - 10:00"
+                )
 
-        InfoCard(
-            icon = Icons.Default.Tag, // Material Icon for course code
-            label = "Course Code",
-            content = "MATH101"
-        )
+                InfoCard(
+                    icon = Icons.Default.Tag, // Material Icon for course code
+                    label = "Course Code",
+                    content = "182465"
+                )
+            }
+        // Materia2
+        else if(materia =="2" ) {
+            Text(
+                text = "Diseno de Algoritmos",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
 
+            // Info cards
+            InfoCard(
+                icon = Icons.Default.Place, // Material Icon for location
+                label = "Room",
+                content = "Aula B1"
+            )
+
+            InfoCard(
+                icon = Icons.Default.AccessTime, // Material Icon for time
+                label = "Schedule",
+                content = "16:00 - 18:00"
+            )
+
+            InfoCard(
+                icon = Icons.Default.Tag, // Material Icon for course code
+                label = "Course Code",
+                content = "256487"
+            )
+        }
+        // Materia3
+        else if(materia =="3" ) {
+            Text(
+                text = "Automatizacion Industrial",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            // Info cards
+            InfoCard(
+                icon = Icons.Default.Place, // Material Icon for location
+                label = "Room",
+                content = "Aula C2"
+            )
+
+            InfoCard(
+                icon = Icons.Default.AccessTime, // Material Icon for time
+                label = "Schedule",
+                content = "12:00 - 14:00"
+            )
+
+            InfoCard(
+                icon = Icons.Default.Tag, // Material Icon for course code
+                label = "Course Code",
+                content = "212301"
+            )
+        }
+        // Materia4
+        else if(materia =="4" ) {
+            Text(
+                text = "Varias Variables",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            // Info cards
+            InfoCard(
+                icon = Icons.Default.Place, // Material Icon for location
+                label = "Room",
+                content = "Aula A10"
+            )
+
+            InfoCard(
+                icon = Icons.Default.AccessTime, // Material Icon for time
+                label = "Schedule",
+                content = "14:00 - 18:00"
+            )
+
+            InfoCard(
+                icon = Icons.Default.Tag, // Material Icon for course code
+                label = "Course Code",
+                content = "212152"
+            )
+        }
         // Map Button
         Button(
             onClick = { navController.navigate("Mapa")},

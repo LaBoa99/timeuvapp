@@ -82,7 +82,11 @@ fun CalendarView(navController: NavHostController) {
 fun ContentCalendarView(navController: NavHostController) {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var currentMonth by remember { mutableStateOf(YearMonth.now()) }
-
+    val events = mapOf(
+        LocalDate.now() to "Evento de hoy",
+        LocalDate.now().plusDays(2) to "Reunión importante",
+        LocalDate.now().minusDays(3) to "Evento pasado"
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -144,7 +148,8 @@ fun ContentCalendarView(navController: NavHostController) {
         CalendarGrid(
             currentMonth = currentMonth,
             selectedDate = selectedDate,
-            onDateSelected = { selectedDate = it }
+            onDateSelected = { selectedDate = it },
+            events = events
         )
 
         // Botones de Navegación a Talleres y Materias
@@ -197,7 +202,8 @@ fun ContentCalendarView(navController: NavHostController) {
 fun CalendarGrid(
     currentMonth: YearMonth,
     selectedDate: LocalDate,
-    onDateSelected: (LocalDate) -> Unit
+    onDateSelected: (LocalDate) -> Unit,
+    events: Map<LocalDate, String> // Mapa de fechas a eventos
 ) {
     val firstDayOfMonth = currentMonth.atDay(1)
     val daysInMonth = currentMonth.lengthOfMonth()
@@ -228,23 +234,39 @@ fun CalendarGrid(
                     } else if (currentDay <= daysInMonth) {
                         val date = currentMonth.atDay(currentDay)
                         val isSelected = date == selectedDate
+                        val hasEvent = events.containsKey(date)
 
                         Box(
                             modifier = Modifier
                                 .size(40.dp)
                                 .padding(2.dp)
                                 .background(
-                                    color = if (isSelected) Color(0xFFB71C1C) else Color.Transparent,
+                                    color = when {
+                                        isSelected -> Color(0xFFB71C1C) // Color de selección
+                                        hasEvent -> Color(0xFFFFEB3B) // Color para eventos
+                                        else -> Color.Transparent
+                                    },
                                     shape = CircleShape
                                 )
                                 .clickable { onDateSelected(date) },
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = currentDay.toString(),
-                                fontSize = 16.sp,
-                                color = if (isSelected) Color.White else Color.Black
-                            )
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = currentDay.toString(),
+                                    fontSize = 16.sp,
+                                    color = if (isSelected) Color.White else Color.Black
+                                )
+                                if (hasEvent) {
+                                    Text(
+                                        text = "•", // Marcador de evento
+                                        fontSize = 20.sp,
+                                        color = Color.Red
+                                    )
+                                }
+                            }
                         }
                         currentDay++
                     } else {
