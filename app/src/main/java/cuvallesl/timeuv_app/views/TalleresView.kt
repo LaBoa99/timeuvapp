@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TalleresView(navController: NavHostController) {
+fun TalleresView(materia:String,navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -46,19 +46,19 @@ fun TalleresView(navController: NavHostController) {
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home") }
+                    onClick = { navController.navigate("Home/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = { navController.navigate("Calendario") }
+                    onClick = { navController.navigate("Calendario/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Profile") }
+                    onClick = { navController.navigate("Profile/$materia") }
                 )
             }
         },

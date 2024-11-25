@@ -27,7 +27,7 @@ import java.util.*
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarView(navController: NavHostController) {
+fun CalendarView(materia: String,navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -51,7 +51,7 @@ fun CalendarView(navController: NavHostController) {
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home") }
+                    onClick = { navController.navigate("Home/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
@@ -63,7 +63,7 @@ fun CalendarView(navController: NavHostController) {
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Profile") }
+                    onClick = { navController.navigate("Profile/$materia") }
                 )
             }
         },
@@ -72,14 +72,14 @@ fun CalendarView(navController: NavHostController) {
             .statusBarsPadding()
             .background(Color.Red)
     ) {
-        ContentCalendarView(navController)
+        ContentCalendarView(materia,navController)
     }
 }
 
 
 
 @Composable
-fun ContentCalendarView(navController: NavHostController) {
+fun ContentCalendarView(materia: String,navController: NavHostController) {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var currentMonth by remember { mutableStateOf(YearMonth.now()) }
     val events = mapOf(
@@ -161,7 +161,7 @@ fun ContentCalendarView(navController: NavHostController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
-                onClick = { navController.navigate("Talleres") },
+                onClick = { navController.navigate("Talleres/$materia") },
                 modifier = Modifier
                     .weight(1f)
                     .height(40.dp)
@@ -178,7 +178,7 @@ fun ContentCalendarView(navController: NavHostController) {
             }
 
             Button(
-                onClick = { navController.navigate("Materias") },
+                onClick = { navController.navigate("Materias/$materia") },
                 modifier = Modifier
                     .weight(1f)
                     .height(40.dp)

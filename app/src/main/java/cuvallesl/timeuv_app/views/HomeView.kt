@@ -60,6 +60,7 @@ import cuvallesl.timeuv_app.R
 
 @Composable
 fun HomeView(email:String, navController: NavHostController){
+    val materia = "1"
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(
@@ -86,13 +87,13 @@ fun HomeView(email:String, navController: NavHostController){
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = { navController.navigate("Calendario") }
+                    onClick = { navController.navigate("Calendario/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Profile") }
+                    onClick = { navController.navigate("Profile/$materia") }
                 )
             }
         },
@@ -171,11 +172,11 @@ fun ContentHomeView(email:String, navController: NavHostController){
                 var materia = "1"
                 navController.navigate("InfoM/$materia")}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Diseno de Algoritmos", room = "Aula B1", time = "16:00 - 18:00", ){
+            SubjectCard(subject = "Algoritmos", room = "Aula B1", time = "16:00 - 18:00", ){
                 var materia = "2"
                 navController.navigate("InfoM/$materia")}
             Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Automatizacion Industrial", room = "Aula C2", time = "12:00 - 14:00", ){
+            SubjectCard(subject = "Automatizacion", room = "Aula C2", time = "12:00 - 14:00", ){
                 var materia = "3"
                 navController.navigate("InfoM/$materia")}
             Spacer(modifier = Modifier.width(20.dp))

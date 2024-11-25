@@ -17,13 +17,13 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsView(navController: NavHostController) {
+fun SettingsView(materia:String, navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("CONFIGURACIONES") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("Profile") }) {
+                    IconButton(onClick = { navController.navigate("Profile/$materia") }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Regresar"

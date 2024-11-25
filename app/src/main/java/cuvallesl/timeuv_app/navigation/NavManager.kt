@@ -25,25 +25,31 @@ fun NavManager(navController: NavHostController) {
             val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
             InfoMView(materia=materia ,navController = navController) // Llama a SettingsScreen
         }
-        composable("Mapa") {
-            MapaView(navController = navController)
+        composable("Mapa/{materia}") {backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            MapaView(materia=materia ,navController = navController)
         }
         //Rutas posibles dentro del apartado de Calendario
-        composable("Calendario") {
-            CalendarView(navController = navController) // Llama a CalendarView
+        composable("Calendario/{materia}") {backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            CalendarView(materia=materia ,navController = navController) // Llama a CalendarView
         }
-        composable("Talleres") {
-            TalleresView(navController = navController) // Llama a TalleresView
+        composable("Talleres/{materia}") {backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            TalleresView(materia=materia ,navController = navController) // Llama a TalleresView
         }
-        composable("Materias/{email}") {
-            MateriasView(navController = navController) // Llama a SettingsScreen
+        composable("Materias/{materia}") {backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            MateriasView(materia=materia ,navController = navController) // Llama a SettingsScreen
         }
         //Rutas posibles dentro del apartado de Perfil
-        composable("Profile/{email}"){
-            ProfileView(navController = navController)
+        composable("Profile/{materia}"){backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            ProfileView(materia=materia ,navController = navController)
         }
-        composable("Configuraciones") {
-            SettingsView(navController = navController) // Llama a SettingsScreen
+        composable("Configuraciones/{materia}") {backStackEntry ->
+            val materia = backStackEntry.arguments?.getString("materia")?:"Unknown"
+            SettingsView(materia=materia ,navController = navController) // Llama a SettingsScreen
         }
     }
 

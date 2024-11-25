@@ -30,7 +30,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun ProfileView(navController: NavHostController){
+fun ProfileView(materia:String,navController: NavHostController){
 
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
@@ -43,7 +43,7 @@ fun ProfileView(navController: NavHostController){
                 ),
                 navigationIcon = {
                     IconButton(
-                        onClick = {navController.navigate("Home")}
+                        onClick = {navController.navigate("Home/$materia")}
                     ){
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -54,7 +54,7 @@ fun ProfileView(navController: NavHostController){
                 },
                 actions = {
                     IconButton(
-                        onClick = {navController.navigate("Configuraciones")}
+                        onClick = {navController.navigate("Configuraciones/$materia")}
                     ){
                         Icon(
                             imageVector = Icons.Default.Settings,
@@ -74,13 +74,13 @@ fun ProfileView(navController: NavHostController){
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home") }
+                    onClick = { navController.navigate("Home/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = {navController.navigate("Calendario")}
+                    onClick = {navController.navigate("Calendario/$materia")}
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },

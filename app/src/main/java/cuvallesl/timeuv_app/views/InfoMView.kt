@@ -55,7 +55,9 @@ fun InfoMView(materia: String, navController: NavHostController) {
                 ),
                 navigationIcon = {
                     IconButton(
-                        onClick = {navController.navigate("Home")}
+                        onClick = {navController.navigate("Home/$materia"){
+                            popUpTo("Home"){inclusive = true}
+                        } }
                     ){
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -201,7 +203,7 @@ fun ContentInfoMView(materia:String, navController: NavHostController) {
         }
         // Map Button
         Button(
-            onClick = { navController.navigate("Mapa")},
+            onClick = { navController.navigate("Mapa/$materia")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),

@@ -25,7 +25,7 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 
 @Composable
-fun MapaView(navController: NavHostController) {
+fun MapaView(materia:String, navController: NavHostController) {
     val context = LocalContext.current
 
     // Configuración inicial de OSMdroid con SharedPreferences
@@ -128,7 +128,7 @@ fun MapaView(navController: NavHostController) {
 
         // Botón para regresar
         Button(
-            onClick = { navController.navigate("InfoM") },
+            onClick = { navController.navigate("InfoM/$materia") },
             modifier = Modifier.padding(16.dp)
         ) {
             Text(text = "Regresar")
