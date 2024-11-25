@@ -9,7 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -72,6 +74,7 @@ fun MateriasView(navController: NavHostController) {
                 .padding(paddingValues)
                 .background(Color(0xFFF5F5F5))
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -86,10 +89,34 @@ fun MateriasView(navController: NavHostController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             MateriaCard(
-                id = "ID994",
-                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                id = "ID982",
+                name = "DISEÑO INTERACTIVO II\n",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
                 credits = "9 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            MateriaCard(
+                id = "D984",
+                name = "GEOMETRIA COMPUTACIONAL",
+                professor = "CASTILLO CHAVARIN JOSE ADOLFO\n",
+                credits = "9 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            MateriaCard(
+                id = "ID994",
+                name = "PROGRAMACION AVANZADA\n DE PLC",
+                professor = "RAMIREZ TORRES MIGUEL\nANGEL",
+                credits = "8 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            MateriaCard(
+                id = "ID943",
+                name = "CONTROLADORES LOGICOS\n PROGRAMABLES",
+                professor = "RENTERIA VARGAS ERASMO \nMISAEL",
+                credits = "7 CREDITOS"
             )
         }
     }

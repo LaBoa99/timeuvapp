@@ -49,7 +49,7 @@ fun ContentNAView(navController: NavHostController) {
         Spacer(modifier = Modifier.padding(26.dp))
         EmailFieldNA("Email", onTextChanged = { text -> inputText.value = text})
         Spacer(modifier = Modifier.padding(1.dp))
-        PaswordFieldNA("Email", onTextChanged = { text -> inputText.value = text})
+        PaswordFieldNA("Password", onTextChanged = { text -> inputText.value = text})
         ButtonLoginNA(navController) // Pasamos navController aquí
     }
 }
@@ -61,7 +61,7 @@ fun ButtonLoginNA(navController: NavHostController) {
         modifier = Modifier
             .width(150.dp)
             .padding(vertical = 8.dp),
-        colors = ButtonDefaults.buttonColors(Color.Red),
+        colors = ButtonDefaults.buttonColors(Color(0xFFD32F2F)),
         content = {
             Text(text = "Crear Cuenta")
         }

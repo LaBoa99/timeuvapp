@@ -8,7 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -69,6 +71,7 @@ fun TalleresView(navController: NavHostController) {
                 .padding(paddingValues)
                 .background(Color(0xFFF5F5F5))
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -80,6 +83,46 @@ fun TalleresView(navController: NavHostController) {
                 credits = "9 CREDITOS"
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TallerCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TallerCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TallerCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TallerCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TallerCard(
+                id = "ID994",
+                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
+                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
+                credits = "9 CREDITOS"
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
             TallerCard(

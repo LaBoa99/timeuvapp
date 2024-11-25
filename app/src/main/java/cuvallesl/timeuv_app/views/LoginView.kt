@@ -65,19 +65,20 @@ fun ContentLoginView(navController: NavHostController) {
             value = email,
             onValueChange = { email = it },
             label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
         )
         //EmailTextField("Email", onTextChanged = { text -> inputText.value = text})
-        Spacer(modifier = Modifier.padding(1.dp))
+        Spacer(modifier = Modifier.padding(15.dp))
         TextField(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
         )
         //PaswordTextField("Pasword", onTextChanged = { text -> inputText.value = text})
         //ButtonLogin(navController) // Pasamos navController aquí
+        Spacer(modifier = Modifier.padding(15.dp))
         Button(
             onClick = {
                 scope.launch {
@@ -90,7 +91,9 @@ fun ContentLoginView(navController: NavHostController) {
                     }
                 }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.width(220.dp).padding(4.dp)
+                .padding(vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(Color(0xFFD32F2F))
         ) {
             Text("Login")
         }
@@ -119,9 +122,9 @@ fun ButtonNA(navController: NavHostController) {
     Button(
         onClick = { navController.navigate("NewAccount") },
         modifier = Modifier
-            .width(150.dp)
+            .width(200.dp)
             .padding(vertical = 8.dp),
-        colors = ButtonDefaults.buttonColors(Color.Red),
+        colors = ButtonDefaults.buttonColors(Color(0xFFD32F2F)),
         content = {
             Text(text = "Crear Cuenta")
         }
