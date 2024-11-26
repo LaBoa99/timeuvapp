@@ -30,7 +30,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun ProfileView(materia:String,navController: NavHostController){
+fun ProfileView(email:String,materia:String,navController: NavHostController){
 
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
@@ -43,7 +43,7 @@ fun ProfileView(materia:String,navController: NavHostController){
                 ),
                 navigationIcon = {
                     IconButton(
-                        onClick = {navController.navigate("Home/$materia")}
+                        onClick = {navController.navigate("Home/$email/$materia")}
                     ){
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -54,7 +54,7 @@ fun ProfileView(materia:String,navController: NavHostController){
                 },
                 actions = {
                     IconButton(
-                        onClick = {navController.navigate("Configuraciones/$materia")}
+                        onClick = {navController.navigate("Configuraciones/$email/$materia")}
                     ){
                         Icon(
                             imageVector = Icons.Default.Settings,
@@ -74,13 +74,13 @@ fun ProfileView(materia:String,navController: NavHostController){
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home/$materia") }
+                    onClick = { navController.navigate("Home/$email/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = {navController.navigate("Calendario/$materia")}
+                    onClick = {navController.navigate("Calendario/$email/$materia")}
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
@@ -97,12 +97,12 @@ fun ProfileView(materia:String,navController: NavHostController){
 
     ){
         Text(text = "Editar Perfil")
-        ContentProfileView()
+        ContentProfileView(email)
     }
 }
 
 @Composable
-fun ContentProfileView(){
+fun ContentProfileView(email:String){
 
     Column(
         modifier = Modifier
@@ -118,7 +118,7 @@ fun ContentProfileView(){
             //Aqui va la funcionalidad OnClick
         }
         MainTextField(text = "Nombre") { }
-        MainTextField(text = "Correo") { }
+        MainTextField(text = "$email") { }
         MainTextField(text = "Contraseña") { }
     }
 }

@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -17,11 +18,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TalleresView(materia:String,navController: NavHostController) {
+fun TalleresView(email:String,materia:String,navController: NavHostController) {
+    val context = LocalContext.current
+    val toast = Toast.makeText(context,"Se manda a Talleres",Toast.LENGTH_SHORT )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -46,19 +50,19 @@ fun TalleresView(materia:String,navController: NavHostController) {
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home/$materia") }
+                    onClick = { navController.navigate("Home/$email/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = { navController.navigate("Calendario/$materia") }
+                    onClick = { navController.navigate("Calendario/$email/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Profile/$materia") }
+                    onClick = { navController.navigate("Profile/$email/$materia") }
                 )
             }
         },
@@ -80,7 +84,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -89,7 +93,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -97,7 +101,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -105,7 +109,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -113,7 +117,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -121,7 +125,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -129,7 +133,7 @@ fun TalleresView(materia:String,navController: NavHostController) {
                 id = "ID994",
                 name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
                 professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS"
+                credits = "9 CREDITOS",toast
             )
         }
     }
@@ -140,7 +144,8 @@ fun TallerCard(
     id: String,
     name: String,
     professor: String,
-    credits: String
+    credits: String,
+    toast: Toast
 ) {
     Card(
         modifier = Modifier
@@ -203,7 +208,7 @@ fun TallerCard(
 
             // Botón de registro
             Button(
-                onClick = { /* Acción de registro */ },
+                onClick = { toast.show() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFEEEEEE)
                 ),

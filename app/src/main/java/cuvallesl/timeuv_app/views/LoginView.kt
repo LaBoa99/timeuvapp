@@ -42,19 +42,19 @@ import androidx.compose.ui.platform.LocalContext
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginView(navController: NavHostController) {
+fun LoginView(email:String,materia:String,navController: NavHostController) {
     Scaffold {
-        ContentLoginView(navController)
+        ContentLoginView(email,materia,navController)
     }
 }
 
 @Composable
-fun ContentLoginView(navController: NavHostController) {
+fun ContentLoginView(email:String,materia:String,navController: NavHostController) {
     val apiService = ApiClient.apiService
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    var email by remember { mutableStateOf("") }
+    var correo by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
     Column(
@@ -66,7 +66,7 @@ fun ContentLoginView(navController: NavHostController) {
         Spacer(modifier = Modifier.padding(20.dp))
         TextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = { correo = it },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
         )
@@ -86,14 +86,14 @@ fun ContentLoginView(navController: NavHostController) {
             onClick = {
                 scope.launch {
                     try {
-                        if(email == "Home" && password == "Home"){
-                        //val response = apiService.login(LoginRequest(email, password))
+                        //if(correo == "Home" && password == "Home"){
+                        val response = apiService.login(LoginRequest(correo, password))
                         // Si el login es exitoso, ejecuta la acción de éxito.
-                        navController.navigate("Home/$email")
-                        }
-                        else{
-                           Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
-                        }
+                        navController.navigate("Home/$correo/$materia")
+                        //}
+                        //else{
+                           //Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
+                        //}
                     } catch (e: Exception) {
                         errorMessage = "Error: ${e.message}"
                     }
@@ -108,12 +108,13 @@ fun ContentLoginView(navController: NavHostController) {
         if (errorMessage.isNotEmpty()) {
             Text(text = errorMessage)
         }
-        ButtonNA(navController) // Pasamos navController aquí
+        ButtonNA(email,materia,navController) // Pasamos navController aquí
     }
 }
 
+/*Funcion obsoleta
 @Composable
-fun ButtonLogin(navController: NavHostController) {
+fun ButtonLogin(email:String,materia:String,navController: NavHostController) {
     Button(
         onClick = { navController.navigate("Home") },
         modifier = Modifier
@@ -125,10 +126,11 @@ fun ButtonLogin(navController: NavHostController) {
         }
     )
 }
+ */
 @Composable
-fun ButtonNA(navController: NavHostController) {
+fun ButtonNA(email: String,materia: String,navController: NavHostController) {
     Button(
-        onClick = { navController.navigate("NewAccount") },
+        onClick = { navController.navigate("NewAccount/$email/$materia") },
         modifier = Modifier
             .width(200.dp)
             .padding(vertical = 8.dp),
@@ -150,9 +152,9 @@ fun HeaderImage(){
     )
 }
 
-//-------------------------------
+/*Funciones obsoleta con la implementacion de la api/-------------------------------
 @Composable
-fun PaswordTextField(label: String, onTextChanged: (String) -> Unit) {
+fun PasswordTextField(label: String, onTextChanged: (String) -> Unit) {
 
     val textState = remember { mutableStateOf(TextFieldValue("")) }
 
@@ -186,3 +188,4 @@ fun EmailTextField(label: String, onTextChanged: (String) -> Unit) {
     )
 
 }
+ */

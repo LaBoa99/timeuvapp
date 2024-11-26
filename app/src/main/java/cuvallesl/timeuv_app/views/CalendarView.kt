@@ -27,7 +27,7 @@ import java.util.*
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarView(materia: String,navController: NavHostController) {
+fun CalendarView(email:String,materia: String,navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -51,7 +51,7 @@ fun CalendarView(materia: String,navController: NavHostController) {
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = false,
-                    onClick = { navController.navigate("Home/$materia") }
+                    onClick = { navController.navigate("Home/$email/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
@@ -63,7 +63,7 @@ fun CalendarView(materia: String,navController: NavHostController) {
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Profile/$materia") }
+                    onClick = { navController.navigate("Profile/$email/$materia") }
                 )
             }
         },
@@ -72,14 +72,14 @@ fun CalendarView(materia: String,navController: NavHostController) {
             .statusBarsPadding()
             .background(Color.Red)
     ) {
-        ContentCalendarView(materia,navController)
+        ContentCalendarView(email,materia,navController)
     }
 }
 
 
 
 @Composable
-fun ContentCalendarView(materia: String,navController: NavHostController) {
+fun ContentCalendarView(email:String,materia: String,navController: NavHostController) {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var currentMonth by remember { mutableStateOf(YearMonth.now()) }
     val events = mapOf(
@@ -161,7 +161,7 @@ fun ContentCalendarView(materia: String,navController: NavHostController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
-                onClick = { navController.navigate("Talleres/$materia") },
+                onClick = { navController.navigate("Talleres/$email/$materia") },
                 modifier = Modifier
                     .weight(1f)
                     .height(40.dp)
@@ -178,7 +178,7 @@ fun ContentCalendarView(materia: String,navController: NavHostController) {
             }
 
             Button(
-                onClick = { navController.navigate("Materias/$materia") },
+                onClick = { navController.navigate("Materias/$email/$materia") },
                 modifier = Modifier
                     .weight(1f)
                     .height(40.dp)

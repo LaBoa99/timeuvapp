@@ -59,8 +59,7 @@ import cuvallesl.timeuv_app.R
 
 
 @Composable
-fun HomeView(email:String, navController: NavHostController){
-    val materia = "1"
+fun HomeView(email:String,materia:String, navController: NavHostController){
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(
@@ -87,13 +86,13 @@ fun HomeView(email:String, navController: NavHostController){
                     icon = { Icon(Icons.Default.DateRange, contentDescription = "Settings") },
                     label = { Text("Calendar") },
                     selected = false,
-                    onClick = { navController.navigate("Calendario/$materia") }
+                    onClick = { navController.navigate("Calendario/$email/$materia") }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
                     label = { Text("Profile") },
                     selected = false,
-                    onClick = { navController.navigate("Profile/$materia") }
+                    onClick = { navController.navigate("Profile/$email/$materia") }
                 )
             }
         },
@@ -103,12 +102,12 @@ fun HomeView(email:String, navController: NavHostController){
             .background(Color.Red)
 
     ) {
-        ContentHomeView(email,navController)
+        ContentHomeView(email,materia,navController)
     }
 }
 
 @Composable
-fun ContentHomeView(email:String, navController: NavHostController){
+fun ContentHomeView(email:String,materia:String, navController: NavHostController){
 
     Column(
         modifier = Modifier
@@ -143,7 +142,7 @@ fun ContentHomeView(email:String, navController: NavHostController){
 
         Space(20)
         Text(
-            text = "Subjects",style = MaterialTheme.typography.headlineSmall,color = Color.Black,
+            text = "Materias",style = MaterialTheme.typography.headlineSmall,color = Color.Black,
             modifier = Modifier
                 .align(Alignment.Start)
                 .background(Color.White, shape = RoundedCornerShape(topStart = 16.dp))
@@ -154,7 +153,7 @@ fun ContentHomeView(email:String, navController: NavHostController){
         Space(10)
 
         Text(
-            text = "Your Subjects",
+            text = "Tus Materias",
             style = MaterialTheme.typography.bodyMedium,
             color = Color.Black.copy(alpha = 0.7f),
             modifier = Modifier.align(Alignment.Start).padding(15.dp).background(Color.White)
@@ -167,22 +166,22 @@ fun ContentHomeView(email:String, navController: NavHostController){
                 .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
                 .padding(vertical = 8.dp)
         ) {
-
+            //Los parametros enviados a la otra ventana se mantienen, lo unico modificable sera la informacion enviada a la ventana, como numero de materia para la extraccion de datos, la estructura de los datacards se mantiene
             SubjectCard(subject = "Teoria de Control", room = "Aula C3", time = "08:00 - 10:0" , ){
-                var materia = "1"
-                navController.navigate("InfoM/$materia")}
+                val im = "1"
+                navController.navigate("InfoM/$email/$im")}
             Spacer(modifier = Modifier.width(20.dp))
             SubjectCard(subject = "Algoritmos", room = "Aula B1", time = "16:00 - 18:00", ){
-                var materia = "2"
-                navController.navigate("InfoM/$materia")}
+                val im = "2"
+                navController.navigate("InfoM/$email/$im")}
             Spacer(modifier = Modifier.width(20.dp))
             SubjectCard(subject = "Automatizacion", room = "Aula C2", time = "12:00 - 14:00", ){
-                var materia = "3"
-                navController.navigate("InfoM/$materia")}
+                val im = "3"
+                navController.navigate("InfoM/$email/$im")}
             Spacer(modifier = Modifier.width(20.dp))
             SubjectCard(subject = "Varias Variables", room = "Aula A 10", time = "14:00 - 18:00",){
-                var materia = "4"
-                navController.navigate("InfoM/$materia")}
+                val im = "4"
+                navController.navigate("InfoM/$email/$im")}
 
         }
         Space(20)
@@ -200,13 +199,15 @@ fun ContentHomeView(email:String, navController: NavHostController){
             modifier = Modifier.align(Alignment.Start).padding(15.dp)
         )
         Space(20)
-        ScheduleCard(name = "Jhon")
+        ScheduleCard(name = "Andrea")
         Space(20)
-        ScheduleCard(name = "Pedro")
+        ScheduleCard(name = "Claudio")
         Space(20)
-        ScheduleCard(name = "Juan")
+        ScheduleCard(name = "Enrique")
         Space(20)
-        ScheduleCard(name = "Monica")
+        ScheduleCard(name = "Humberto")
+        Space(20)
+        ScheduleCard(name = "Vladimir")
         Space(80)
 
 

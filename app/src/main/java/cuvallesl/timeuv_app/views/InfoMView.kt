@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun InfoMView(materia: String, navController: NavHostController) {
+fun InfoMView(email: String,materia: String, navController: NavHostController) {
     Scaffold(
         topBar = { //Se puede agregar un AppBar con el saccafoll de la siguiente manera
             CenterAlignedTopAppBar(
@@ -55,7 +55,7 @@ fun InfoMView(materia: String, navController: NavHostController) {
                 ),
                 navigationIcon = {
                     IconButton(
-                        onClick = {navController.navigate("Home/$materia"){
+                        onClick = {navController.navigate("Home/$email/$materia"){
                             popUpTo("Home"){inclusive = true}
                         } }
                     ){
@@ -73,12 +73,12 @@ fun InfoMView(materia: String, navController: NavHostController) {
             .statusBarsPadding()
             .fillMaxSize()
     ){
-        ContentInfoMView(materia,navController)
+        ContentInfoMView(email,materia,navController)
     }
 }
 
 @Composable
-fun ContentInfoMView(materia:String, navController: NavHostController) {
+fun ContentInfoMView(email: String, materia: String,navController: NavHostController) {
     // Main container for the whole screen
     Column(
         modifier = Modifier
@@ -89,8 +89,8 @@ fun ContentInfoMView(materia:String, navController: NavHostController) {
         Spacer(modifier = Modifier.height(35.dp))
 
 
-        // Materia1
-        if(materia =="1" ) {
+        /* Materia1
+        if(materia =="1" ) {*/
                 Text(
                     text = "Teoria de Control",
                     style = MaterialTheme.typography.headlineSmall,
@@ -116,7 +116,8 @@ fun ContentInfoMView(materia:String, navController: NavHostController) {
                     label = "Course Code",
                     content = "182465"
                 )
-            }
+            //}
+        /* Ejemplo de como se muostraran la informacion de otras materias
         // Materia2
         else if(materia =="2" ) {
             Text(
@@ -200,10 +201,10 @@ fun ContentInfoMView(materia:String, navController: NavHostController) {
                 label = "Course Code",
                 content = "212152"
             )
-        }
+        }*/
         // Map Button
         Button(
-            onClick = { navController.navigate("Mapa/$materia")},
+            onClick = { navController.navigate("Mapa/$email/$materia")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),

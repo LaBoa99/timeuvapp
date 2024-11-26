@@ -31,14 +31,14 @@ import androidx.navigation.NavHostController
 import cuvallesl.timeuv_app.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewAccView(navController: NavHostController) {
+fun NewAccView(email:String,materia:String,navController: NavHostController) {
     Scaffold {
-        ContentNAView(navController)
+        ContentNAView(email,materia,navController)
     }
 }
 
 @Composable
-fun ContentNAView(navController: NavHostController) {
+fun ContentNAView(email: String,materia: String,navController: NavHostController) {
     var inputText = remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -50,14 +50,14 @@ fun ContentNAView(navController: NavHostController) {
         EmailFieldNA("Email", onTextChanged = { text -> inputText.value = text})
         Spacer(modifier = Modifier.padding(1.dp))
         PaswordFieldNA("Password", onTextChanged = { text -> inputText.value = text})
-        ButtonLoginNA(navController) // Pasamos navController aquí
+        ButtonLoginNA(email,materia,navController) // Pasamos navController aquí
     }
 }
 
 @Composable
-fun ButtonLoginNA(navController: NavHostController) {
+fun ButtonLoginNA(email:String,materia: String,navController: NavHostController) {
     Button(
-        onClick = { navController.navigate("Home") },
+        onClick = { navController.navigate("Home/$email/$materia") },
         modifier = Modifier
             .width(150.dp)
             .padding(vertical = 8.dp),

@@ -17,13 +17,13 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsView(materia:String, navController: NavHostController) {
+fun SettingsView(email:String,materia:String, navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("CONFIGURACIONES") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("Profile/$materia") }) {
+                    IconButton(onClick = { navController.navigate("Profile/$email/$materia") }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Regresar"
@@ -92,7 +92,7 @@ fun SettingsView(materia:String, navController: NavHostController) {
 
             // Botón Cerrar Sesión
             Button(
-                onClick = { navController.navigate("Login") },
+                onClick = { navController.navigate("Login/$email/$materia") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
