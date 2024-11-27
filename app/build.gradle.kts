@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation ("com.google.accompanist:accompanist-permissions:0.36.0")
     implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation(platform(libs.firebase.bom))
     implementation (libs.retrofit2)
     implementation (libs.converter.gson)
