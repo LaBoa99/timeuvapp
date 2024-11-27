@@ -59,6 +59,7 @@ dependencies {
     implementation (libs.retrofit2)
     implementation (libs.converter.gson)
     implementation (libs.logging.interceptor)
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
