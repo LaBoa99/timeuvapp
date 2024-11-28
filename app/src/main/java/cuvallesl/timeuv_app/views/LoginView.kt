@@ -39,6 +39,7 @@ import cuvallesl.timeuv_app.models.LoginRequest
 import kotlinx.coroutines.launch
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
+import cuvallesl.timeuv_app.network.token.TokenStore
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -65,7 +66,7 @@ fun ContentLoginView(email:String,materia:String,navController: NavHostControlle
         HeaderImage()
         Spacer(modifier = Modifier.padding(20.dp))
         TextField(
-            value = email,
+            value = correo,
             onValueChange = { correo = it },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
@@ -88,6 +89,9 @@ fun ContentLoginView(email:String,materia:String,navController: NavHostControlle
                     try {
                         //if(correo == "Home" && password == "Home"){
                         val response = apiService.login(LoginRequest(correo, password))
+                        print("RESPONSE")
+                        print(response)
+                        TokenStore.saveToken(response.access_token)
                         // Si el login es exitoso, ejecuta la acción de éxito.
                         navController.navigate("Home/$correo/$materia")
                         //}

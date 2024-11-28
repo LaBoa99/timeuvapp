@@ -8,16 +8,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 
 object ApiClient {
-    private const val BASE_URL = "http://208.167.249.168:3000/"
-    private const val tokenStore = TokenStore
+    private const val BASE_URL = "http://192.168.100.7:3000/"
 
-    val okHttpClient = OkHttpClient.Builder().addInterceptor(AuthInterceptor())
+    private val tokenStore = TokenStore
+    private val authInterceptor = AuthInterceptor { tokenStore.getToken() }
+    private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(authInterceptor)
+        .build()
 
     val apiService: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client()
+            .client(okHttpClient)  // Añadimos el OkHttpClient al Retrofit
             .build()
             .create(ApiService::class.java)
     }

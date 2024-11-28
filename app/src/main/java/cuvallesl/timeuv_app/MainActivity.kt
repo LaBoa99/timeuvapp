@@ -5,6 +5,7 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.pm.PackageManager
+import android.media.session.MediaSession.Token
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,11 +19,13 @@ import androidx.navigation.compose.rememberNavController
 import cuvallesl.timeuv_app.fcm.genAndSaveToken
 import cuvallesl.timeuv_app.fcm.getTokenFromPreferences
 import cuvallesl.timeuv_app.navigation.NavManager
+import cuvallesl.timeuv_app.network.token.TokenStore
 
 class MainActivity : ComponentActivity() {
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "notification_fcm"
     }
+
     // Registro de permisos dentro de la clase
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -34,9 +37,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        TokenStore.initialize(this)
         genAndSaveToken(this);
         println(getTokenFromPreferences(this))
 
@@ -66,6 +72,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun requestPermissions() {
         val permissions = arrayOf(
             android.Manifest.permission.POST_NOTIFICATIONS,
@@ -80,4 +87,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

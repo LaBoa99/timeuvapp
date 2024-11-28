@@ -1,28 +1,38 @@
 package cuvallesl.timeuv_app.network.token
 
+
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
+object TokenStore {
 
-class TokenStore(private val context: Context){
-    companion object {
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("access_token")
-        private val TOKEN_KEY = stringPreferencesKey("access_token")
+    private const val PREFS_NAME = "app_prefs"
+    private const val TOKEN_KEY = "access_token"
+
+    private lateinit var sharedPreferences: android.content.SharedPreferences
+
+    fun initialize(context: Context) {
+        sharedPreferences = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    val getAccessToken: Flow<String> = context.dataStore.data.map {
-        preferences -> preferences[TOKEN_KEY] ?: ""
-    }
-
-    suspend fun saveToken(token: String) {
-        context.dataStore.edit { preferences ->
-            preferences[TOKEN_KEY] = token
+    fun saveToken(token: String) {
+        if (!::sharedPreferences.isInitialized) {
+            throw IllegalStateException("TokenStore no ha sido inicializado. Llama a initialize(context).")
         }
+        sharedPreferences.edit()
+            .putString(TOKEN_KEY, token)
+            .apply()
+    }
+
+    fun getToken(): String  {
+        return sharedPreferences.getString(TOKEN_KEY, "").toString()
+    }
+
+    fun clearToken() {
+        if (!::sharedPreferences.isInitialized) {
+            throw IllegalStateException("TokenStore no ha sido inicializado. Llama a initialize(context).")
+        }
+        sharedPreferences.edit()
+            .remove(TOKEN_KEY)
+            .apply()
     }
 }
