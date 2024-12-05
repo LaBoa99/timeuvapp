@@ -80,14 +80,12 @@ fun ContentLoginView(email:String,materia:String,navController: NavHostControlle
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
         )
-        //PaswordTextField("Pasword", onTextChanged = { text -> inputText.value = text})
-        //ButtonLogin(navController) // Pasamos navController aquí
         Spacer(modifier = Modifier.padding(15.dp))
         Button(
             onClick = {
                 scope.launch {
                     try {
-                        if(correo == "Home" && password == "Home"){
+                        if(correo == "Home@Dev.dev" && password == "Home"){
                         // Si el login es exitoso, ejecuta la acción de éxito.
                         navController.navigate("Home/$correo/$materia")
                         }

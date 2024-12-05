@@ -89,14 +89,49 @@ fun MapaView(email:String,materia:String, navController: NavHostController) {
                     setTileSource(TileSourceFactory.MAPNIK)
                     controller.setZoom(15.0)
                     controller.setCenter(GeoPoint(20.5364, -103.9681)) // Coordenadas de CUValles
-
-                    // Agregar marcador para la biblioteca
-                    val bibliotecaMarker = Marker(this)
-                    bibliotecaMarker.position = GeoPoint(20.536277973915965, -103.96617593519974)
-                    bibliotecaMarker.title = "Biblioteca"
-                    bibliotecaMarker.snippet = "Biblioteca CUValles"
-                    overlays.add(bibliotecaMarker)
-
+                    val ubiMarker = Marker(this)
+                    if(materia == "0") {// Agregar marcador para el auditorio CITA
+                        ubiMarker.position =GeoPoint(20.536631465341323, -103.96817731711513)
+                        ubiMarker.title = "Auditorio CITA"
+                        ubiMarker.snippet = "Auditorio CITA"
+                        overlays.add(ubiMarker)
+                    }
+                    else if (materia in setOf("1", "3", "6")){// Ubicacion del modulo C
+                        ubiMarker.position =GeoPoint(20.538155608084757, -103.9665089702658)
+                        ubiMarker.title = "Modulo C"
+                        ubiMarker.snippet = "Modulo C"
+                        overlays.add(ubiMarker)
+                    }
+                    else if (materia == "2"){// Ubicacion del modulo B
+                        ubiMarker.position =GeoPoint(20.536947482043526, -103.9665112257154)
+                        ubiMarker.title = "Modulo B"
+                        ubiMarker.snippet = "Modulo B"
+                        overlays.add(ubiMarker)
+                    }
+                    else if (materia == "4"){// Ubicacion del modulo A
+                        ubiMarker.position =GeoPoint(20.535618954802437, -103.96668489618176)
+                        ubiMarker.title = "Modulo A"
+                        ubiMarker.snippet = "Modulo A"
+                        overlays.add(ubiMarker)
+                    }
+                    else if (materia == "5"){// Ubicacion de las aulas moviles
+                        ubiMarker.position =GeoPoint(20.53463164311687, -103.96785700503061)
+                        ubiMarker.title = "Aulas Moviles"
+                        ubiMarker.snippet = "Aulas Moviles"
+                        overlays.add(ubiMarker)
+                    }
+                    else if (materia == "7"){// Ubicacion del edificio CITA
+                        ubiMarker.position =GeoPoint(20.536698654626818, -103.96815116558675)
+                        ubiMarker.title = "CITA"
+                        ubiMarker.snippet = "Edificio CITA"
+                        overlays.add(ubiMarker)
+                    }
+                    else{ //Ubicacion de Biblioteca
+                        ubiMarker.position =GeoPoint(20.536232970769998, -103.9662989995176)
+                        ubiMarker.title = "Biblioteca"
+                        ubiMarker.snippet = "Biblioteca CuValles"
+                        overlays.add(ubiMarker)
+                    }
                     onResume() // Resumir el mapa para evitar problemas de visualización
                 }
             },

@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -16,11 +17,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import cuvallesl.timeuv_app.components.SubjectCard
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -84,19 +87,12 @@ fun CalendarView(email:String,materia: String,navController: NavHostController) 
 fun ContentCalendarView(email:String,materia: String,navController: NavHostController) {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var currentMonth by remember { mutableStateOf(YearMonth.now()) }
-    if (email == "Home"){
+    val context = LocalContext.current
     val events = mapOf(
-        LocalDate.now() to "Evento de hoy",
-        LocalDate.now().plusDays(2) to "Reunión importante",
-        LocalDate.now().minusDays(3) to "Evento pasado"
-    )}
-    else{
-        val events = mapOf(
-            LocalDate.now() to "Evento de hoy",
-            LocalDate.now().plusDays(2) to "Reunión importante",
-            LocalDate.now().plusDays(3) to "Conferencia"
-        )
-    }
+        LocalDate.now() to "Entrega Dispositivos Moviles",
+        LocalDate.now().plusDays(5) to "Informacion de Practicas",
+        LocalDate.now().plusDays(8) to "Conferencia Semiconductores"
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -110,6 +106,7 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -159,8 +156,7 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
             currentMonth = currentMonth,
             selectedDate = selectedDate,
             onDateSelected = { selectedDate = it },
-            if(email =="Home"){events = events}
-            else{
+            events = events
         )
 
         // Botones de Navegación a Talleres y Materias
@@ -205,6 +201,13 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
                     color = Color.White
                 )
             }
+            SubjectCard(subject = "Entrega Dispositivos Mov" ,room = "En Linea",time = "15:00"){ Toast.makeText(context,"Este evento es en linea",Toast.LENGTH_SHORT ).show()}
+            Spacer(modifier = Modifier.width(20.dp))
+            SubjectCard(subject = "Informacion Practicas" ,room = "Auditorio CITA",time = "12:00"){ val im = "0"
+                navController.navigate("Mapa/$email/$im")}
+            Spacer(modifier = Modifier.width(20.dp))
+            SubjectCard(subject = "Conferencia Semiconductores" ,room = "Auditorio CITA / En Linea",time = "10:00"){val im = "0"
+                navController.navigate("Mapa/$email/$im")}
 
         }
 

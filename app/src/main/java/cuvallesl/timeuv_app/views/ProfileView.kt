@@ -117,7 +117,11 @@ fun ContentProfileView(email:String){
         IconProfile(){
             //Aqui va la funcionalidad OnClick
         }
-        MainTextField(text = "Nombre") { }
+        if(email == "Home"){
+        MainTextField(text = "Vladimir Ortiz") { }
+        }else{
+            MainTextField(text = "TimeUVDev"){}
+        }
         MainTextField(text = "$email") { }
         MainTextField(text = "Contraseña") { }
     }

@@ -56,8 +56,9 @@ fun ContentNAView(email: String,materia: String,navController: NavHostController
 
 @Composable
 fun ButtonLoginNA(email:String,materia: String,navController: NavHostController) {
+    val correo = "Prueba"
     Button(
-        onClick = { navController.navigate("Home/$email/$materia") },
+        onClick = { navController.navigate("Home/$correo/$materia") },
         modifier = Modifier
             .width(150.dp)
             .padding(vertical = 8.dp),

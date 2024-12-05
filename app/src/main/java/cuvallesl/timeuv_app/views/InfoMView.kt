@@ -107,8 +107,8 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
                 InfoCard(
                     icon = Icons.Default.AccessTime, // Material Icon for time
-                    label = "Schedule",
-                    content = "08:00 - 10:00"
+                    label = "Horario",
+                    content = "Martes 08:00 - 10:00"
                 )
 
                 InfoCard(
@@ -136,8 +136,8 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
             InfoCard(
                 icon = Icons.Default.AccessTime, // Material Icon for time
-                label = "Schedule",
-                content = "16:00 - 18:00"
+                label = "Horario",
+                content = "Jueves 16:00 - 18:00"
             )
 
             InfoCard(
@@ -164,8 +164,8 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
             InfoCard(
                 icon = Icons.Default.AccessTime, // Material Icon for time
-                label = "Schedule",
-                content = "12:00 - 14:00"
+                label = "Horario",
+                content = "Martes 12:00 - 14:00"
             )
 
             InfoCard(
@@ -192,14 +192,95 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
             InfoCard(
                 icon = Icons.Default.AccessTime, // Material Icon for time
-                label = "Schedule",
-                content = "14:00 - 18:00"
+                label = "Horario",
+                content = "Martes 14:00 - 16:00"
             )
 
             InfoCard(
                 icon = Icons.Default.Tag, // Material Icon for course code
                 label = "CRN",
                 content = "212152"
+            )
+        }
+        else if(materia =="5" ) {
+            Text(
+                text = "Toxicologia",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            // Info cards
+            InfoCard(
+                icon = Icons.Default.Place, // Material Icon for location
+                label = "Salon",
+                content = "Aula Movil 1"
+            )
+
+            InfoCard(
+                icon = Icons.Default.AccessTime, // Material Icon for time
+                label = "Horario",
+                content = "Lunes 16:00 - 18:00"
+            )
+
+            InfoCard(
+                icon = Icons.Default.Tag, // Material Icon for course code
+                label = "CRN",
+                content = "220941"
+            )
+        }
+        else if(materia =="6" ) {
+            Text(
+                text = "Biomateriales",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            // Info cards
+            InfoCard(
+                icon = Icons.Default.Place, // Material Icon for location
+                label = "Salon",
+                content = "Aula C14"
+            )
+
+            InfoCard(
+                icon = Icons.Default.AccessTime, // Material Icon for time
+                label = "Horario",
+                content = "Miercoles 08:00 - 10:00"
+            )
+
+            InfoCard(
+                icon = Icons.Default.Tag, // Material Icon for course code
+                label = "CRN",
+                content = "221405"
+            )
+        }
+        else if(materia =="7" ) {
+            Text(
+                text = "Bioinformatica",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            // Info cards
+            InfoCard(
+                icon = Icons.Default.Place, // Material Icon for location
+                label = "Salon",
+                content = "Aula Cita 2"
+            )
+
+            InfoCard(
+                icon = Icons.Default.AccessTime, // Material Icon for time
+                label = "Horario",
+                content = "Miercoles 14:00 - 16:00"
+            )
+
+            InfoCard(
+                icon = Icons.Default.Tag, // Material Icon for course code
+                label = "CRN",
+                content = "223801"
             )
         }
         // Map Button
@@ -215,7 +296,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
                 contentDescription = "View on Map",
                 modifier = Modifier.padding(end = 8.dp)
             )
-            Text("View on Map", color = Color.White)
+            Text("Ver en el mapa", color = Color.White)
         }
     }
 }
