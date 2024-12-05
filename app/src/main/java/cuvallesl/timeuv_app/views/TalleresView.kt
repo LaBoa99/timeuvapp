@@ -201,7 +201,7 @@ fun TallerCard(
                         text = credits,
                         fontSize = 12.sp,
                         color = Color.Black,
-                        fontWeight = FontWeight.Medium//a
+                        fontWeight = FontWeight.Medium//Prueba
                     )
                 }
             }
