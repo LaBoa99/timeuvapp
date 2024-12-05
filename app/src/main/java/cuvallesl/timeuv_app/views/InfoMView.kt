@@ -89,8 +89,8 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
         Spacer(modifier = Modifier.height(35.dp))
 
 
-        /* Materia1
-        if(materia =="1" ) {*/
+        // Materia1
+        if(materia =="1" ) {
                 Text(
                     text = "Teoria de Control",
                     style = MaterialTheme.typography.headlineSmall,
@@ -101,7 +101,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
                 // Info cards
                 InfoCard(
                     icon = Icons.Default.Place, // Material Icon for location
-                    label = "Room",
+                    label = "Salon",
                     content = "Aula C3"
                 )
 
@@ -113,11 +113,11 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
                 InfoCard(
                     icon = Icons.Default.Tag, // Material Icon for course code
-                    label = "Course Code",
+                    label = "CRN",
                     content = "182465"
                 )
-            //}
-        /* Ejemplo de como se muostraran la informacion de otras materias
+            }
+
         // Materia2
         else if(materia =="2" ) {
             Text(
@@ -130,7 +130,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
             // Info cards
             InfoCard(
                 icon = Icons.Default.Place, // Material Icon for location
-                label = "Room",
+                label = "Salon",
                 content = "Aula B1"
             )
 
@@ -142,7 +142,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
             InfoCard(
                 icon = Icons.Default.Tag, // Material Icon for course code
-                label = "Course Code",
+                label = "CRN",
                 content = "256487"
             )
         }
@@ -158,7 +158,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
             // Info cards
             InfoCard(
                 icon = Icons.Default.Place, // Material Icon for location
-                label = "Room",
+                label = "Salon",
                 content = "Aula C2"
             )
 
@@ -170,7 +170,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
             InfoCard(
                 icon = Icons.Default.Tag, // Material Icon for course code
-                label = "Course Code",
+                label = "CRN",
                 content = "212301"
             )
         }
@@ -186,7 +186,7 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
             // Info cards
             InfoCard(
                 icon = Icons.Default.Place, // Material Icon for location
-                label = "Room",
+                label = "Salon",
                 content = "Aula A10"
             )
 
@@ -198,10 +198,10 @@ fun ContentInfoMView(email: String, materia: String,navController: NavHostContro
 
             InfoCard(
                 icon = Icons.Default.Tag, // Material Icon for course code
-                label = "Course Code",
+                label = "CRN",
                 content = "212152"
             )
-        }*/
+        }
         // Map Button
         Button(
             onClick = { navController.navigate("Mapa/$email/$materia")},

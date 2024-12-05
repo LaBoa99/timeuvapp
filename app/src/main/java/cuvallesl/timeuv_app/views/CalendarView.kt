@@ -3,7 +3,9 @@ package cuvallesl.timeuv_app.views
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -82,11 +84,19 @@ fun CalendarView(email:String,materia: String,navController: NavHostController) 
 fun ContentCalendarView(email:String,materia: String,navController: NavHostController) {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     var currentMonth by remember { mutableStateOf(YearMonth.now()) }
+    if (email == "Home"){
     val events = mapOf(
         LocalDate.now() to "Evento de hoy",
         LocalDate.now().plusDays(2) to "Reunión importante",
         LocalDate.now().minusDays(3) to "Evento pasado"
-    )
+    )}
+    else{
+        val events = mapOf(
+            LocalDate.now() to "Evento de hoy",
+            LocalDate.now().plusDays(2) to "Reunión importante",
+            LocalDate.now().plusDays(3) to "Conferencia"
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -149,7 +159,8 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
             currentMonth = currentMonth,
             selectedDate = selectedDate,
             onDateSelected = { selectedDate = it },
-            events = events
+            if(email =="Home"){events = events}
+            else{
         )
 
         // Botones de Navegación a Talleres y Materias
@@ -157,6 +168,7 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -193,6 +205,7 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
                     color = Color.White
                 )
             }
+
         }
 
     }

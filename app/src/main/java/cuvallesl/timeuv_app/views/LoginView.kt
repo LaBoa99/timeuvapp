@@ -87,17 +87,16 @@ fun ContentLoginView(email:String,materia:String,navController: NavHostControlle
             onClick = {
                 scope.launch {
                     try {
-                        //if(correo == "Home" && password == "Home"){
-                        val response = apiService.login(LoginRequest(correo, password))
-                        print("RESPONSE")
-                        print(response)
-                        TokenStore.saveToken(response.access_token)
+                        if(correo == "Home" && password == "Home"){
                         // Si el login es exitoso, ejecuta la acción de éxito.
                         navController.navigate("Home/$correo/$materia")
-                        //}
-                        //else{
-                           //Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
-                        //}
+                        }
+                        else if (correo == "Prueba" && password == "Prueba"){
+                            navController.navigate("Home/$correo/$materia")
+                        }
+                        else{
+                            Toast.makeText(context,"Contrasena o user incorrecto",Toast.LENGTH_SHORT ).show()
+                        }
                     } catch (e: Exception) {
                         errorMessage = "Error: ${e.message}"
                     }

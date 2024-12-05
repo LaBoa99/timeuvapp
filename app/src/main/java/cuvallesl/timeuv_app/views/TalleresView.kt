@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 @Composable
 fun TalleresView(email:String,materia:String,navController: NavHostController) {
     val context = LocalContext.current
-    val toast = Toast.makeText(context,"Se manda a Talleres",Toast.LENGTH_SHORT )
+    val toast = Toast.makeText(context,"Se manda a Pag Talleres",Toast.LENGTH_SHORT )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -201,7 +201,7 @@ fun TallerCard(
                         text = credits,
                         fontSize = 12.sp,
                         color = Color.Black,
-                        fontWeight = FontWeight.Medium//Prueba
+                        fontWeight = FontWeight.Medium
                     )
                 }
             }

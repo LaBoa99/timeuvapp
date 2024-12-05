@@ -108,7 +108,27 @@ fun HomeView(email:String,materia:String, navController: NavHostController){
 
 @Composable
 fun ContentHomeView(email:String,materia:String, navController: NavHostController){
-
+    val SM1 = "Teoria de Control"//Componentes de la materia 1
+    val RM1 = "Aula C3"
+    val TM1 = "Mar 08:00 - 10:00"
+    val SM2 = "Algoritmos"//Componentes de la materia 2
+    val RM2 = "Aula B1"
+    val TM2 = "Jue 16:00 - 18:00"
+    val SM3 = "Automatizacion"//Componentes de la materia 3
+    val RM3 = "Aula C2"
+    val TM3 = "Mar 12:00 - 14:00"
+    val SM4 = "Varias Variables"//Componentes de la materia 4
+    val RM4 = "Aula A 10"
+    val TM4 = "Mar 14:00 - 16:00"
+    val SM5 = "Toxicologia"//Componentes de la materia 5
+    val RM5 = "Aula Movil 1"
+    val TM5 = "Lun 16:00 - 18:00"
+    val SM6 = "Biomateriales"//Componentes de la materia 6
+    val RM6 = "Aula C14"
+    val TM6 = "Mie 08:00 - 10:00"
+    val SM7 = "Bioinformatica"//Componentes de la materia 7
+    val RM7 = "Aula Cita 2"
+    val TM7 = "Mie 14:00 - 16:00"
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -167,21 +187,50 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
                 .padding(vertical = 8.dp)
         ) {
             //Los parametros enviados a la otra ventana se mantienen, lo unico modificable sera la informacion enviada a la ventana, como numero de materia para la extraccion de datos, la estructura de los datacards se mantiene
-            SubjectCard(subject = "Teoria de Control", room = "Aula C3", time = "08:00 - 10:0" , ){
-                val im = "1"
-                navController.navigate("InfoM/$email/$im")}
-            Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Algoritmos", room = "Aula B1", time = "16:00 - 18:00", ){
-                val im = "2"
-                navController.navigate("InfoM/$email/$im")}
-            Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Automatizacion", room = "Aula C2", time = "12:00 - 14:00", ){
-                val im = "3"
-                navController.navigate("InfoM/$email/$im")}
-            Spacer(modifier = Modifier.width(20.dp))
-            SubjectCard(subject = "Varias Variables", room = "Aula A 10", time = "14:00 - 18:00",){
-                val im = "4"
-                navController.navigate("InfoM/$email/$im")}
+            if(email == "Home") {
+                SubjectCard(subject = SM1,room = RM1,time = TM1) {
+                    val im = "1"
+                    navController.navigate("InfoM/$email/$im")
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                SubjectCard(subject = SM2,room = RM2,time = TM2) {
+                    val im = "2"
+                    navController.navigate("InfoM/$email/$im")
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                SubjectCard(subject = SM3,room = RM3,time = TM3) {
+                    val im = "3"
+                    navController.navigate("InfoM/$email/$im")
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                SubjectCard(subject = SM4,room = RM4,time = TM4,
+                ) {
+                    val im = "4"
+                    navController.navigate("InfoM/$email/$im")
+                }
+            }
+            else{ //Se establece como si fuese el perfil de un estudiante de Sistemas Biologicos
+                SubjectCard(subject = SM5,room = RM5,time = TM5) {
+                    val im = "5"
+                    navController.navigate("InfoM/$email/$im")
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                SubjectCard(subject = SM2,room = RM2,time = TM2,) {
+                    val im = "2"
+                    navController.navigate("InfoM/$email/$im")
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                SubjectCard(subject = SM6,room = RM6,time = TM6) {
+                    val im = "6"
+                    navController.navigate("InfoM/$email/$im")
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                SubjectCard(subject = SM7,room = RM7,time = TM7
+                ) {
+                    val im = "7"
+                    navController.navigate("InfoM/$email/$im")
+                }
+            }
 
         }
         Space(20)
@@ -200,6 +249,26 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
         )
         Space(20)
         ScheduleCard(name = "Andrea")
+        SubjectCard(subject = SM3,room = RM3,time = TM3) {
+            val im = "3"
+            navController.navigate("InfoM/$email/$im")
+        }
+        Spacer(modifier = Modifier.width(20.dp))
+        SubjectCard(subject = SM2,room = RM2,time = TM2) {
+            val im = "2"
+            navController.navigate("InfoM/$email/$im")
+        }
+        Spacer(modifier = Modifier.width(20.dp))
+        SubjectCard(subject = SM3,room = RM3,time = TM3) {
+            val im = "3"
+            navController.navigate("InfoM/$email/$im")
+        }
+        Spacer(modifier = Modifier.width(20.dp))
+        SubjectCard(subject = SM4,room = RM4,time = TM4,
+        ) {
+            val im = "4"
+            navController.navigate("InfoM/$email/$im")
+        }
         Space(20)
         ScheduleCard(name = "Claudio")
         Space(20)
@@ -208,6 +277,21 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
         ScheduleCard(name = "Humberto")
         Space(20)
         ScheduleCard(name = "Vladimir")
+        SubjectCard(subject = SM1,room = RM1,time = TM1) {
+            val im = "1"
+            navController.navigate("InfoM/$email/$im")
+        }
+        Spacer(modifier = Modifier.width(20.dp))
+        SubjectCard(subject = SM3,room = RM3,time = TM3) {
+            val im = "3"
+            navController.navigate("InfoM/$email/$im")
+        }
+        Spacer(modifier = Modifier.width(20.dp))
+        SubjectCard(subject = SM4,room = RM4,time = TM4,
+        ) {
+            val im = "4"
+            navController.navigate("InfoM/$email/$im")
+        }
         Space(80)
 
 
