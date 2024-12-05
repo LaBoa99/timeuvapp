@@ -125,14 +125,16 @@ fun MapaView(email:String,materia:String, navController: NavHostController) {
                         ubiMarker.title = "CITA"
                         ubiMarker.snippet = "Edificio CITA"
                         overlays.add(ubiMarker)
+                        onResume() // Resumir el mapa para evitar problemas de visualización
                     }
                     else{ //Ubicacion de Biblioteca
                         ubiMarker.position =GeoPoint(20.536232970769998, -103.9662989995176)
                         ubiMarker.title = "Biblioteca"
                         ubiMarker.snippet = "Biblioteca CuValles"
                         overlays.add(ubiMarker)
+                        onResume() // Resumir el mapa para evitar problemas de visualización
                     }
-                    onResume() // Resumir el mapa para evitar problemas de visualización
+
                 }
             },
             modifier = Modifier.weight(1f)
@@ -162,11 +164,22 @@ fun MapaView(email:String,materia:String, navController: NavHostController) {
         }
 
         // Botón para regresar
-        Button(
-            onClick = { navController.navigate("InfoM/$email/$materia") },
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(text = "Regresar")
+        if (materia == "0")
+        {
+            Button(
+                onClick = { navController.navigate("Calendario/$email/$materia") },
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(text = "Regresar")
+            }
+        }else{
+            Button(
+                onClick = { navController.navigate("InfoM/$email/$materia") },
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(text = "Regresar")
+            }
         }
+
     }
 }

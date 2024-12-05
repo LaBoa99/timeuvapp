@@ -74,7 +74,7 @@ fun HomeView(email:String,materia:String, navController: NavHostController){
         },
         bottomBar = {
             NavigationBar(
-                modifier = Modifier.height(100.dp)
+                modifier = Modifier.height(100.dp) 
             ){
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
@@ -129,6 +129,7 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
     val SM7 = "Bioinformatica"//Componentes de la materia 7
     val RM7 = "Aula Cita 2"
     val TM7 = "Mie 14:00 - 16:00"
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -146,7 +147,6 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
             .fillMaxWidth()
             .background(Color(0xFFD32F2F))
             .heightIn(min = 240.dp, max = 300.dp)
-
 
         ){
             Image(
@@ -192,17 +192,17 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
                     val im = "1"
                     navController.navigate("InfoM/$email/$im")
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
                 SubjectCard(subject = SM2,room = RM2,time = TM2) {
                     val im = "2"
                     navController.navigate("InfoM/$email/$im")
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
                 SubjectCard(subject = SM3,room = RM3,time = TM3) {
                     val im = "3"
                     navController.navigate("InfoM/$email/$im")
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
                 SubjectCard(subject = SM4,room = RM4,time = TM4,
                 ) {
                     val im = "4"
@@ -214,25 +214,25 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
                     val im = "5"
                     navController.navigate("InfoM/$email/$im")
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
                 SubjectCard(subject = SM2,room = RM2,time = TM2,) {
                     val im = "2"
                     navController.navigate("InfoM/$email/$im")
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
                 SubjectCard(subject = SM6,room = RM6,time = TM6) {
                     val im = "6"
                     navController.navigate("InfoM/$email/$im")
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
                 SubjectCard(subject = SM7,room = RM7,time = TM7
                 ) {
                     val im = "7"
                     navController.navigate("InfoM/$email/$im")
                 }
             }
-
         }
+
         Space(20)
         Text(
             text = "Your Shedule",style = MaterialTheme.typography.headlineSmall,color = Color.Black,
@@ -247,101 +247,145 @@ fun ContentHomeView(email:String,materia:String, navController: NavHostControlle
             color = Color.Black.copy(alpha = 0.7f),
             modifier = Modifier.align(Alignment.Start).padding(15.dp)
         )
-        Space(20)
+        Space(10)
         ScheduleCard(name = "Andrea")
-        SubjectCard(subject = SM3,room = RM3,time = TM3) {
-            val im = "3"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM2,room = RM2,time = TM2) {
-            val im = "2"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM4,room = RM4,time = TM4,
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(vertical = 8.dp)
         ) {
-            val im = "4"
-            navController.navigate("InfoM/$email/$im")
+            SubjectCard(subject = SM3,room = RM3,time = TM3) {
+                val im = "3"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM2,room = RM2,time = TM2) {
+                val im = "2"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM4,room = RM4,time = TM4,
+            ) {
+                val im = "4"
+                navController.navigate("InfoM/$email/$im")
+            }
         }
-        Space(20)
+
+        Space(10)
         ScheduleCard(name = "Claudio")
-        SubjectCard(subject = SM3,room = RM3,time = TM3) {
-        val im = "1"
-        navController.navigate("InfoM/$email/$im")
-    }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM2,room = RM2,time = TM2) {
-            val im = "2"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM5,room = RM5,time = TM5,
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(vertical = 8.dp)
         ) {
-            val im = "5"
-            navController.navigate("InfoM/$email/$im")
+            SubjectCard(subject = SM3,room = RM3,time = TM3) {
+                val im = "1"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM2,room = RM2,time = TM2) {
+                val im = "2"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM5,room = RM5,time = TM5,
+            ) {
+                val im = "5"
+                navController.navigate("InfoM/$email/$im")
+            }
         }
-        Space(20)
+
+        Space(10)
         ScheduleCard(name = "Enrique")
-        SubjectCard(subject = SM4,room = RM4,time = TM4) {
-            val im = "4"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM3,room = RM3,time = TM3) {
-            val im = "3"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM6,room = RM6,time = TM6,
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(vertical = 8.dp)
         ) {
-            val im = "6"
-            navController.navigate("InfoM/$email/$im")
+            SubjectCard(subject = SM4,room = RM4,time = TM4) {
+                val im = "4"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM3,room = RM3,time = TM3) {
+                val im = "3"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM6,room = RM6,time = TM6,
+            ) {
+                val im = "6"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM7,room = RM7,time = TM7,
+            ) {
+                val im = "7"
+                navController.navigate("InfoM/$email/$im")
+            }
         }
-        SubjectCard(subject = SM7,room = RM7,time = TM7,
-        ) {
-            val im = "7"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Space(20)
+
+        Space(10)
         ScheduleCard(name = "Humberto")
-        SubjectCard(subject = SM6,room = RM6,time = TM6,
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(vertical = 8.dp)
         ) {
-            val im = "6"
-            navController.navigate("InfoM/$email/$im")
+            SubjectCard(subject = SM6,room = RM6,time = TM6,
+            ) {
+                val im = "6"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM7,room = RM7,time = TM7,
+            ) {
+                val im = "7"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM5,room = RM5,time = TM5,
+            ) {
+                val im = "5"
+                navController.navigate("InfoM/$email/$im")
+            }
         }
-        SubjectCard(subject = SM7,room = RM7,time = TM7,
-        ) {
-            val im = "7"
-            navController.navigate("InfoM/$email/$im")
-        }
-        SubjectCard(subject = SM5,room = RM5,time = TM5,
-        ) {
-            val im = "5"
-            navController.navigate("InfoM/$email/$im")
-        }
+
+
         Space(20)
         ScheduleCard(name = "Vladimir")
-        SubjectCard(subject = SM1,room = RM1,time = TM1) {
-            val im = "1"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM3,room = RM3,time = TM3) {
-            val im = "3"
-            navController.navigate("InfoM/$email/$im")
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        SubjectCard(subject = SM6,room = RM6,time = TM6,
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(vertical = 8.dp)
         ) {
-            val im = "6"
-            navController.navigate("InfoM/$email/$im")
+            SubjectCard(subject = SM1,room = RM1,time = TM1) {
+                val im = "1"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM3,room = RM3,time = TM3) {
+                val im = "3"
+                navController.navigate("InfoM/$email/$im")
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            SubjectCard(subject = SM6,room = RM6,time = TM6,
+            ) {
+                val im = "6"
+                navController.navigate("InfoM/$email/$im")
+            }
         }
-        Space(20)
-
+        Space(100)
 
     }
 }
+
 @Composable
 fun Space(size: Int){
     Spacer(modifier = Modifier.height(size.dp))
@@ -359,3 +403,4 @@ fun IconButtomHome(onClick:()-> Unit){
         )
     }
 }
+

@@ -159,8 +159,6 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
             events = events
         )
 
-        // Botones de Navegación a Talleres y Materias
-        Spacer(modifier = Modifier.height(30.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,6 +199,20 @@ fun ContentCalendarView(email:String,materia: String,navController: NavHostContr
                     color = Color.White
                 )
             }
+
+        }
+
+        // Botones de Navegación a Talleres y Materias
+        Spacer(modifier = Modifier.height(30.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())  // Habilita el desplazamiento horizontal
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            Spacer(modifier = Modifier.height(20.dp))
             SubjectCard(subject = "Entrega Dispositivos Mov" ,room = "En Linea",time = "15:00"){ Toast.makeText(context,"Este evento es en linea",Toast.LENGTH_SHORT ).show()}
             Spacer(modifier = Modifier.width(20.dp))
             SubjectCard(subject = "Informacion Practicas" ,room = "Auditorio CITA",time = "12:00"){ val im = "0"

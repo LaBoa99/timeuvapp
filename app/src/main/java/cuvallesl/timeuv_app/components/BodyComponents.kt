@@ -36,10 +36,9 @@ import androidx.compose.ui.unit.dp
 fun SubjectCard(subject: String, room: String, time: String,onClick: () -> Unit) {
     Card(
         modifier = Modifier
-
             .width(180.dp)
-            .height(100.dp)
-            .padding(4.dp)
+            .height(115.dp)
+            .padding(2.dp)
             .clickable{onClick()},
         colors = CardDefaults.cardColors(containerColor = Color.Gray),
         shape = RoundedCornerShape(16.dp)
