@@ -19,14 +19,53 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.Alignment
 import android.widget.Toast
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import cuvallesl.timeuv_app.models.Course
+import cuvallesl.timeuv_app.models.LoginRequest
+import cuvallesl.timeuv_app.models.LoginResponse
+import cuvallesl.timeuv_app.models.Schedule
+import cuvallesl.timeuv_app.network.ApiClient
+import cuvallesl.timeuv_app.network.token.TokenStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.HttpException
+import retrofit2.Response
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ShowToast")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MateriasView(email:String,materia:String,navController: NavHostController) {
     val context = LocalContext.current
-    val toast = Toast.makeText(context,"Se manda a Leo",Toast.LENGTH_SHORT )
+    var courses by remember { mutableStateOf<List<Course>>(emptyList()) }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        scope.launch(Dispatchers.IO) {
+            val response = try {
+                ApiClient.apiService.getCourses()
+            } catch (error: HttpException){
+                return@launch
+            } catch (error: Exception) {
+                return@launch
+            }
+            if(response.isSuccessful && response.body() != null){
+                withContext(Dispatchers.Main){
+                    courses = response.body()!!
+                }
+            }
+        }
+    }
+    // val toast = Toast.makeText(context,"Se manda a Leo",Toast.LENGTH_SHORT )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -82,58 +121,34 @@ fun MateriasView(email:String,materia:String,navController: NavHostController) {
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Cards para cada materia
-            MateriaCard(
-                id = "ID994",
-                name = "PROGRAMACION PARA\nDISPOSITIVOS MOVILES",
-                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS",toast
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            MateriaCard(
-                id = "ID982",
-                name = "DISEÑO INTERACTIVO II\n",
-                professor = "ERICK JORGE ROBERTO GUERRERO\nMUÑOZ",
-                credits = "9 CREDITOS",toast
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            MateriaCard(
-                id = "D984",
-                name = "GEOMETRIA COMPUTACIONAL",
-                professor = "CASTILLO CHAVARIN JOSE ADOLFO\n",
-                credits = "9 CREDITOS",toast
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            MateriaCard(
-                id = "ID994",
-                name = "PROGRAMACION AVANZADA\n DE PLC",
-                professor = "RAMIREZ TORRES MIGUEL\nANGEL",
-                credits = "8 CREDITOS",toast
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            MateriaCard(
-                id = "ID943",
-                name = "CONTROLADORES LOGICOS\n PROGRAMABLES",
-                professor = "RENTERIA VARGAS ERASMO \nMISAEL",
-                credits = "7 CREDITOS",toast
-            )
+            for(course in courses){
+                MateriaCard(
+                    real_id = course.id,
+                    id = course.courseKey,
+                    name = course.subject,
+                    professor = course.professor,
+                    credits = course.courseCrn,
+                    scope = scope
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }
 
+
+
 @Composable
 fun MateriaCard(
+    real_id: Long,
     id: String,
     name: String,
     professor: String,
     credits: String,
-    toast: Toast
+    scope: CoroutineScope
 ) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -195,7 +210,30 @@ fun MateriaCard(
 
             // Botón de registro
             Button(
-                onClick = {toast.show()},
+                onClick = {
+                    scope.launch {
+                        try {
+                            val call = ApiClient.apiService.enroll(real_id.toString())
+                            call.enqueue(
+                                object : Callback<Schedule> {
+                                    override fun onResponse(call: Call<Schedule>, response: Response<Schedule>) {
+                                        if (response.isSuccessful) {
+                                            Toast.makeText(context, "Materia registrada con exito", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            Toast.makeText(context,"Ocurrio un error",Toast.LENGTH_SHORT ).show()
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<Schedule>, t: Throwable) {
+                                        Toast.makeText(context,"Ocurrio un error",Toast.LENGTH_SHORT ).show()
+                                    }
+                                }
+                            )
+                        } catch (e: Exception) {
+                            println(e)
+                        }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFEEEEEE)
                 ),
@@ -214,3 +252,4 @@ fun MateriaCard(
         }
     }
 }
+

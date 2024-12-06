@@ -4,6 +4,7 @@ package cuvallesl.timeuv_app
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.media.session.MediaSession.Token
 import android.os.Build
@@ -30,11 +31,16 @@ class MainActivity : ComponentActivity() {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
+        val sharedPreferences = this.getSharedPreferences("options", Context.MODE_PRIVATE)
         if (isGranted) {
             // FCM SDK (y tu app) pueden enviar notificaciones
+
+            sharedPreferences.edit().putBoolean("notifications", true).apply()
         } else {
             // Notificar al usuario que el permiso es necesario
+            sharedPreferences.edit().putBoolean("notifications", false).apply()
         }
+
     }
 
 

@@ -1,6 +1,7 @@
 package cuvallesl.timeuv_app.views
 
 import   android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +40,14 @@ import cuvallesl.timeuv_app.models.LoginRequest
 import kotlinx.coroutines.launch
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
+import cuvallesl.timeuv_app.fcm.getTokenFromPreferences
+import cuvallesl.timeuv_app.models.LoginResponse
+import cuvallesl.timeuv_app.models.User
+import cuvallesl.timeuv_app.models.UserCreateRequest
 import cuvallesl.timeuv_app.network.token.TokenStore
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -88,16 +96,26 @@ fun ContentLoginView(email:String,materia:String,navController: NavHostControlle
                 scope.launch {
                     try {
                         //if(correo == "Home" && password == "Home"){
-                        val response = apiService.login(LoginRequest(correo, password))
-                        print("RESPONSE")
-                        print(response)
-                        TokenStore.saveToken(response.access_token)
-                        // Si el login es exitoso, ejecuta la acción de éxito.
-                        navController.navigate("Home/$correo/$materia")
-                        //}
-                        //else{
-                           //Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
-                        //}
+                        val request = LoginRequest(correo, password)
+                        val call = ApiClient.apiService.login(request)
+                        call.enqueue(
+                            object : Callback<LoginResponse> {
+                                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                                    if (response.isSuccessful) {
+                                        val post = response.body()
+                                        println(post)
+                                        post?.access_token?.let { TokenStore.saveToken(it) }
+                                        navController.navigate("Home/$correo/$materia")
+                                    } else {
+                                        Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                                    Toast.makeText(context,"Contrasena incorrecta",Toast.LENGTH_SHORT ).show()
+                                }
+                            }
+                        )
                     } catch (e: Exception) {
                         errorMessage = "Error: ${e.message}"
                     }
