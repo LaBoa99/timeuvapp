@@ -30,4 +30,7 @@ interface ApiService {
     // SCHEDULE
     @PATCH("schedules/self/enroll/{course_id}")
     fun enroll(@Path("course_id") courseId: String): Call<Schedule>
+
+    @GET("schedules/self/enrollments")
+    suspend fun getEnrollments(): Response<Schedule>
 }
